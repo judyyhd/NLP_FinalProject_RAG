@@ -58,14 +58,14 @@ body {
   background-color: var(--nyu-violet) !important;
   background-image: none !important;
   color: var(--white);
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem !important;
   border-bottom: 4px solid var(--nyu-violet);
 }
 
 .page-header .project-name {
   color: var(--white) !important;
   margin: 0;
-  font-size: 2.5rem;
+  font-size: 2rem !important;
   font-weight: 700;
 }
 
@@ -73,12 +73,14 @@ body {
   color: var(--white) !important;
   opacity: 0.9;
   margin: 0.5rem 0 0 0;
+  font-size: 1.2rem !important;
 }
 
 .page-header .btn {
   background-color: var(--white) !important;
   color: var(--nyu-violet) !important;
   border: 2px solid var(--white) !important;
+  font-weight: 600 !important;
 }
 
 .page-header .btn:hover {
@@ -111,39 +113,45 @@ header p {
    Typography
    ============================================================================ */
 
-h1, h2, h3, h4, h5, h6 {
+.main-content h1, 
+.main-content h2, 
+.main-content h3, 
+.main-content h4, 
+.main-content h5, 
+.main-content h6 {
   font-weight: 600;
   line-height: 1.3;
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
 
-h1 {
-  color: #330662;  /* Deep Violet */
+.main-content h1 {
+  color: #330662 !important;  /* Deep Violet */
   font-size: 2.5rem;
   border-bottom: 3px solid #330662;
   padding-bottom: 0.5rem;
 }
 
-h2 {
-  color: #702b9d;  /* Medium Violet 1 */
+.main-content h2 {
+  color: #702b9d !important;  /* Medium Violet 1 */
   font-size: 2rem;
   border-bottom: 2px solid #702b9d;
   padding-bottom: 0.4rem;
 }
 
-h3 {
-  color: #7b5aa6;  /* Medium Violet 2 */
+.main-content h3 {
+  color: #7b5aa6 !important;  /* Medium Violet 2 */
   font-size: 1.5rem;
 }
 
-h4 {
-  color: #ab82c5;  /* Light Violet 1 */
+.main-content h4 {
+  color: #ab82c5 !important;  /* Light Violet 1 */
   font-size: 1.25rem;
 }
 
-h5, h6 {
-  color: var(--text-dark);
+.main-content h5, 
+.main-content h6 {
+  color: var(--text-dark) !important;
   font-size: 1.1rem;
 }
 

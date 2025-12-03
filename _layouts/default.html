@@ -10,11 +10,11 @@
   </head>
   <body>
     <section class="page-header">
-      <div style="display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap;">
-        <img src="{{ '/assets/images/NYU_Short_RGB_Color.png' | relative_url }}" alt="NYU Logo" style="height: 80px; filter: brightness(0) invert(1);">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; padding: 1rem 0;">
+        <img src="{{ '/assets/images/NYU_Short_RGB_Color.png' | relative_url }}" alt="NYU Logo" style="height: 60px;">
         <div style="text-align: center;">
-          <h1 class="project-name">{{ site.title | default: site.github.repository_name }}</h1>
-          <h2 class="project-tagline">{{ site.description | default: site.github.project_tagline }}</h2>
+          <h1 class="project-name" style="font-size: 2rem; margin: 0;">{{ site.title | default: site.github.repository_name }}</h1>
+          <h2 class="project-tagline" style="font-size: 1.2rem; margin: 0.5rem 0 0 0;">{{ site.description | default: site.github.project_tagline }}</h2>
         </div>
       </div>
       {% if site.github.is_project_page %}
