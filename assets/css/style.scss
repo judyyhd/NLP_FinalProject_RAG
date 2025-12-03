@@ -112,7 +112,6 @@ header p {
    ============================================================================ */
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--nyu-violet);
   font-weight: 600;
   line-height: 1.3;
   margin-top: 2rem;
@@ -120,30 +119,32 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
+  color: #330662;  /* Deep Violet */
   font-size: 2.5rem;
-  border-bottom: 3px solid var(--nyu-violet);
+  border-bottom: 3px solid #330662;
   padding-bottom: 0.5rem;
 }
 
 h2 {
+  color: #702b9d;  /* Medium Violet 1 */
   font-size: 2rem;
-  border-bottom: 2px solid var(--nyu-violet);
+  border-bottom: 2px solid #702b9d;
   padding-bottom: 0.4rem;
 }
 
 h3 {
+  color: #7b5aa6;  /* Medium Violet 2 */
   font-size: 1.5rem;
-  color: var(--medium-violet-1);
 }
 
 h4 {
+  color: #ab82c5;  /* Light Violet 1 */
   font-size: 1.25rem;
-  color: var(--medium-violet-2);
 }
 
 h5, h6 {
-  font-size: 1.1rem;
   color: var(--text-dark);
+  font-size: 1.1rem;
 }
 
 /* ============================================================================
