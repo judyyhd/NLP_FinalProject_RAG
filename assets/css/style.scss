@@ -54,6 +54,39 @@ body {
    Header & Navigation
    ============================================================================ */
 
+.page-header {
+  background-color: var(--nyu-violet) !important;
+  background-image: none !important;
+  color: var(--white);
+  padding: 2rem 1rem;
+  border-bottom: 4px solid var(--nyu-violet);
+}
+
+.page-header .project-name {
+  color: var(--white) !important;
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.page-header .project-tagline {
+  color: var(--white) !important;
+  opacity: 0.9;
+  margin: 0.5rem 0 0 0;
+}
+
+.page-header .btn {
+  background-color: var(--white) !important;
+  color: var(--nyu-violet) !important;
+  border: 2px solid var(--white) !important;
+}
+
+.page-header .btn:hover {
+  background-color: var(--light-violet-2) !important;
+  color: var(--nyu-violet) !important;
+  border-color: var(--light-violet-2) !important;
+}
+
 header {
   background-color: var(--nyu-violet);
   color: var(--white);
@@ -69,7 +102,8 @@ header h1 {
 }
 
 header p {
-  color: var(--light-violet-2);
+  color: var(--white);
+  opacity: 0.9;
   margin: 0.5rem 0 0 0;
 }
 
