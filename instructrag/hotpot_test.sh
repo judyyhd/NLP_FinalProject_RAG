@@ -6,7 +6,7 @@
 #SBATCH --time 1-01:00:00
 #SBATCH --exclude=a100-4029
 
-hf auth login --token "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"
+hf auth login --token "insert_your_token"
 
 python src/inference.py \
   --dataset_name hotpotqa \
