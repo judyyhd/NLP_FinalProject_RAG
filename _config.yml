@@ -1,0 +1,27 @@
+theme: jekyll-theme-cayman
+title: RAG Systems Comparison
+description: Comparing different RAG approaches for multi-hop question answering on HotpotQA
+show_downloads: false
+
+# NYU Branding
+nyu:
+  primary_color: "#57068c"
+  secondary_color: "#8900e1"
+  
+# Site metadata
+author: NYU NLP Team
+institution: New York University
+course: Fundamentals of Natural Language Processing
+semester: Fall 2025
+
+# Analytics (optional - add your tracking ID)
+# google_analytics: UA-XXXXXXXX-X
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Results
+    url: /results
+  - title: Code
+    url: https://github.com/judyyhd/NLP_FinalProject_RAG
