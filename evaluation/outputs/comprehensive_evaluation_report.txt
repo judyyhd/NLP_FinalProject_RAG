@@ -1,0 +1,77 @@
+================================================================================
+COMPREHENSIVE EVALUATION REPORT
+Dataset: HotpotQA Full Dev Set (7,405 examples)
+================================================================================
+
+PERFORMANCE SUMMARY
+--------------------------------------------------------------------------------
+Model                EM (%)     F1 (%)     Acc (%)    Length    
+--------------------------------------------------------------------------------
+No RAG               6.28       13.55      15.58      6.7       
+Vanilla RAG          3.57       14.55      25.17      14.5      
+InstructRAG          3.30       11.82      61.28      53.9      
+Self-RAG             14.42      30.35      48.85      11.8      
+
+================================================================================
+
+DETAILED STATISTICS
+--------------------------------------------------------------------------------
+
+No RAG:
+  EM:  mean=6.2795%, std=24.2595%, min=0.0000%, max=100.0000%
+  F1:  mean=13.5486%, std=27.9610%, min=0.0000%, max=100.0000%
+  Accuracy: mean=15.5841%, std=36.2704%, min=0.0000%, max=100.0000%
+  Response Length: mean=6.68 words, std=8.08, min=0, max=91
+  Questions with EM=1: 465 (6.28%)
+  Questions with F1>0.5: 750 (10.13%)
+
+Vanilla RAG:
+  EM:  mean=3.5652%, std=18.5420%, min=0.0000%, max=100.0000%
+  F1:  mean=14.5544%, std=23.9523%, min=0.0000%, max=100.0000%
+  Accuracy: mean=25.1722%, std=43.4002%, min=0.0000%, max=100.0000%
+  Response Length: mean=14.51 words, std=13.94, min=0, max=89
+  Questions with EM=1: 264 (3.57%)
+  Questions with F1>0.5: 580 (7.83%)
+
+InstructRAG:
+  EM:  mean=3.2951%, std=17.8508%, min=0.0000%, max=100.0000%
+  F1:  mean=11.8227%, std=19.5689%, min=0.0000%, max=100.0000%
+  Accuracy: mean=61.2829%, std=48.7103%, min=0.0000%, max=100.0000%
+  Response Length: mean=53.91 words, std=41.84, min=1, max=366
+  Questions with EM=1: 244 (3.30%)
+  Questions with F1>0.5: 348 (4.70%)
+
+Self-RAG:
+  EM:  mean=14.4227%, std=35.1320%, min=0.0000%, max=100.0000%
+  F1:  mean=30.3481%, std=35.2183%, min=0.0000%, max=100.0000%
+  Accuracy: mean=48.8454%, std=49.9867%, min=0.0000%, max=100.0000%
+  Response Length: mean=11.79 words, std=10.83, min=1, max=76
+  Questions with EM=1: 1068 (14.42%)
+  Questions with F1>0.5: 1691 (22.84%)
+
+================================================================================
+
+COMPARATIVE ANALYSIS
+--------------------------------------------------------------------------------
+
+Vanilla RAG vs No RAG:
+  EM improvement: -2.7144 percentage points
+  F1 improvement: +1.0058 percentage points
+  Response length change: +7.84 words
+
+InstructRAG vs No RAG:
+  EM improvement: -2.9845 percentage points
+  F1 improvement: -1.7260 percentage points
+  Response length change: +47.23 words
+
+Self-RAG vs No RAG:
+  EM improvement: +8.1431 percentage points
+  F1 improvement: +16.7995 percentage points
+  Response length change: +5.11 words
+
+================================================================================
+Notes:
+- EM (Exact Match): Strict string match after normalization
+- F1: Token-level overlap between prediction and ground truth
+- Length: Average number of words in model predictions
+- All models evaluated on the same 7,405 dev examples

@@ -1,0 +1,658 @@
+====================================================================================================
+EXAMPLE SHOWCASES: RAG ARCHITECTURE COMPARISON
+====================================================================================================
+
+
+====================================================================================================
+NO RAG - STRENGTHS AND WEAKNESSES
+====================================================================================================
+
+--- No RAG STRENGTHS (Correct when others fail) ---
+
+Example 1:
+Question: This singer of A Rather Blustery Day also voiced what hedgehog?
+Gold Answer: ['Sonic']
+
+No RAG Response (Accuracy=1, F1=0.67):
+  
+[Sonic the Hedgehog](https://en.wikipedia.org/wiki/Sonic_the_Hedgehog)
+
+Vanilla RAG Response (Accuracy=0, F1=0.00):
+  
+The answer is Christopher Robin.
+
+InstructRAG Response (Accuracy=0, F1=0.00):
+  Based on the information provided in Documents 6 and 9, the singer of "A Rather Blustery Day" is Jim Cummings, who also voiced Tigger in the Winnie the Pooh franchise. Therefore, the answer to the question is Jim Cummings.
+
+Self-RAG Response (Accuracy=0, F1=0.00):
+  Jim Cummings
+
+----------------------------------------------------------------------------------------------------
+
+Example 2:
+Question: What legend that lends its name to a modern medical term, inspired the plot of the horror film Ghostkeeper?
+Gold Answer: ['Wendigo']
+
+No RAG Response (Accuracy=1, F1=0.50):
+  
+The legend of the Wendigo.
+
+Vanilla RAG Response (Accuracy=0, F1=0.00):
+  
+The legend that lends its name to the modern medical term "causa mortis" is the legend of the ghostkeeper. The ghostkeeper is a legend that tells of a man who was killed by a ghost and then became a ghost himself. The legend of the ghostkeeper is the inspiration for the horror film Ghostkeeper.
+
+InstructRAG Response (Accuracy=0, F1=0.00):
+  Based on the information provided, the legend that lends its name to a modern medical term and inspired the plot of the horror film Ghostkeeper is the Windigo legend. The Windigo legend is a North American Indigenous legend about an evil spirit that can possess humans and cause them to become cannibals. The legend has been used in various forms of media, including the film Ghostkeeper, which centers on a trio of snowmobilers who become stranded at an abandoned hotel where an old woman is hiding an evil entity within the basement.
+
+Self-RAG Response (Accuracy=0, F1=0.00):
+  The Windigo legend of North America.
+
+----------------------------------------------------------------------------------------------------
+
+--- No RAG WEAKNESSES (Incorrect when others succeed) ---
+
+Example 1:
+Question: Who is older, Annie Morton or Terry Richardson?
+Gold Answer: ['Terry Richardson']
+
+No RAG Response (Accuracy=0, F1=0.00):
+  
+Annie Morton is older.
+
+Vanilla RAG Response (Accuracy=1, F1=0.44):
+  
+Terry Richardson is older than Annie Morton.
+
+
+InstructRAG Response (Accuracy=1, F1=0.05):
+  Based on the information provided in the documents, Terry Richardson is older than Annie Morton.
+
+According to Document 2 (Madonna), Terry Richardson was born on August 14, 1965, which makes him 56 years old (as of 2021).
+
+On the other hand, Annie Morton's birthdate is not mentioned in any of the documents. However, based on her profile as a model and actress, it is likely that she was born in the 1970s or 1980s, which would make her older than Terry Richardson.
+
+Therefore, Terry Richardson is older than Annie Morton.
+
+Self-RAG Response (Accuracy=1, F1=0.44):
+  Terry Richardson is older than Annie Morton.
+
+----------------------------------------------------------------------------------------------------
+
+Example 2:
+Question: Are Local H and For Against both from the United States?
+Gold Answer: ['yes']
+
+No RAG Response (Accuracy=0, F1=0.00):
+  
+No, they are not.
+
+Vanilla RAG Response (Accuracy=1, F1=0.29):
+  
+Yes, both are from the United States.
+
+
+InstructRAG Response (Accuracy=1, F1=0.01):
+  Yes, based on the information provided in the documents, Local H and For Against are both from the United States.
+
+Document 5 (Title: Local H) states that Local H is an American rock band originally formed by guitarist and vocalist Scott Lucas, bassist Matt Garcia, drummer Joe Daniels, and lead guitarist John Sparkman in Zion, Illinois in 1987. This indicates that Local H is from Illinois, which is a state in the United States.
+
+Similarly, Document 7 (Title: For Against) mentions that the band has produced material steadily from its 1984 inception to the present, which suggests that For Against has been active for a long time and is likely from the United States.
+
+There is no information in the provided documents to suggest that Local H or For Against are from any other country. Therefore, based on the available evidence, it can be concluded that both Local H and For Against are from the United States.
+
+Self-RAG Response (Accuracy=1, F1=0.17):
+  Yes, both Local H and For Against are from the United States.
+
+----------------------------------------------------------------------------------------------------
+
+
+====================================================================================================
+VANILLA RAG - STRENGTHS AND WEAKNESSES
+====================================================================================================
+
+--- Vanilla RAG STRENGTHS (Correct when others fail) ---
+
+Example 1:
+Question: In what month is the annual documentary film festival, that is presented by the fortnightly published British journal of literary essays, held? 
+Gold Answer: ['March and April']
+
+Vanilla RAG Response (Accuracy=1, F1=0.17):
+  
+The London International Documentary Festival (or LIDF) is an annual documentary film festival that takes place in the months of March and April every year.  The event is presented in association with the London Review of Books.
+
+No RAG Response (Accuracy=0, F1=0.00):
+  
+The answer is:
+
+InstructRAG Response (Accuracy=0, F1=0.00):
+  Based on the information provided in Document 8 (British Journal of Social Psychology), the annual documentary film festival is not held by the British Journal of Social Psychology. The journal is a peer-reviewed academic journal that publishes original papers on various topics related to social psychology, but it does not organize or present an annual documentary film festival. Therefore, the answer to the question is "not applicable" or "not specified" as the festival is not associated with the British Journal of Social Psychology.
+
+Self-RAG Response (Accuracy=0, F1=0.09):
+  The annual documentary film festival, presented by the fortnightly published British journal of literary essays, is held in the month of March.
+
+----------------------------------------------------------------------------------------------------
+
+Example 2:
+Question: Where did the descendants of the group of black Indians associated with the Seminole people settle?
+Gold Answer: ['Coahuila, Mexico']
+
+Vanilla RAG Response (Accuracy=1, F1=0.25):
+  
+The descendants of the group of black Indians associated with the Seminole people settled in Coahuila, Mexico.
+
+
+No RAG Response (Accuracy=0, F1=0.00):
+  
+The Seminole people settled in Florida.
+
+InstructRAG Response (Accuracy=0, F1=0.00):
+  Based on the information provided in Documents 9 and 10, the descendants of the Black Seminoles settled in Oklahoma. According to Document 9, the Seminole Nation of Oklahoma is a federally recognized Native American tribe based in Oklahoma, and it is the largest of the three federally recognized Seminole governments. Additionally, Document 10 states that the Black Seminoles lived mostly in distinct bands near the Native American Seminole in Florida and Oklahoma, and some were held as slaves of particular Seminole leaders, but they had more freedom than did slaves held by whites in the South and by other Native American tribes, including the right to bear arms. This suggests that the Black Seminoles were associated with the Seminole people in Florida and later settled in Oklahoma after being forcibly removed from Florida during the Second Seminole War.
+
+Self-RAG Response (Accuracy=0, F1=0.00):
+  The Black Seminoles are black Indians associated with the Seminole people in Florida and Oklahoma.They are the descendants of free blacks and of escaped slaves (called maroons) who allied with Seminole groups in Spanish Florida.Historically, the Black Seminoles lived mostly in distinct bands near the Native American Seminole.
+
+----------------------------------------------------------------------------------------------------
+
+--- Vanilla RAG WEAKNESSES (Incorrect when others succeed) ---
+
+Example 1:
+Question: 2014 S/S is the debut album of a South Korean boy group that was formed by who?
+Gold Answer: ['YG Entertainment']
+
+Vanilla RAG Response (Accuracy=0, F1=0.04):
+  
+Shinee is a South Korean boy group that was formed by S.M. Entertainment in 2008.  Their debut album, "The Shinee World", was released on August 28, 2008.  The first single released from the album was "Sanso Gateun Neo (Love Like Oxygen)" and won first place on "M Countdown" on September 18, 2008 making it the
+
+No RAG Response (Accuracy=1, F1=0.22):
+  
+2014 S/S is the debut album of a South Korean boy group that was formed by YG Entertainment.
+
+InstructRAG Response (Accuracy=1, F1=1.00):
+  YG Entertainment
+
+Self-RAG Response (Accuracy=1, F1=1.00):
+  YG Entertainment
+
+----------------------------------------------------------------------------------------------------
+
+Example 2:
+Question: What nationality were social anthropologists Alfred Gell and Edmund Leach?
+Gold Answer: ['British']
+
+Vanilla RAG Response (Accuracy=0, F1=0.00):
+  
+
+No RAG Response (Accuracy=1, F1=1.00):
+  
+* British
+
+InstructRAG Response (Accuracy=1, F1=0.02):
+  Based on the information provided in the documents, Alfred Gell and Edmund Leach were both British.
+
+Document 9 (Title: Alfred Gell) mentions that Alfred Gell was "trained by Edmund Leach (MPhil, Cambridge University) and Raymond Firth (PhD, London School of Economics)". This suggests that Edmund Leach was also British, as he was a lecturer at Cambridge University.
+
+Document 1 (Title: Edmund Leach) confirms that Edmund Leach was born in the United Kingdom and was a British social anthropologist.
+
+Therefore, based on the information provided in the documents, both Alfred Gell and Edmund Leach were British social anthropologists.
+
+Self-RAG Response (Accuracy=1, F1=0.20):
+  Alfred Gell was British and Edmund Leach was English.
+
+----------------------------------------------------------------------------------------------------
+
+
+====================================================================================================
+INSTRUCTRAG - STRENGTHS AND WEAKNESSES
+====================================================================================================
+
+--- InstructRAG STRENGTHS (Correct when others fail) ---
+
+Example 1:
+Question: Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?
+Gold Answer: ['no']
+
+InstructRAG Response (Accuracy=1, F1=0.00):
+  Based on the information provided in the documents, the Laleli Mosque and Esma Sultan Mansion are not located in the same neighborhood.
+
+Document 6 (Title: Laleli Mosque) states that the Laleli Mosque is located in Laleli, Fatih, Istanbul, Turkey.
+
+Document 7 (Title: Esma Sultan Mansion) states that the Esma Sultan Mansion is located at Bosphorus in Ortaköy neighborhood of Istanbul, Turkey.
+
+Therefore, the two locations are in different neighborhoods of Istanbul.
+
+No RAG Response (Accuracy=0, F1=0.00):
+  
+Yes, they are located in the same neighborhood.
+
+Vanilla RAG Response (Accuracy=0, F1=0.00):
+  
+Yes, they are located in the same neighborhood.
+
+Self-RAG Response (Accuracy=0, F1=0.00):
+  Yes, the Laleli Mosque and the Esma Sultan Mansion are located in the same neighborhood in Istanbul, Turkey.
+
+----------------------------------------------------------------------------------------------------
+
+Example 2:
+Question: What screenwriter with credits for "Evolution" co-wrote a film starring Nicolas Cage and Téa Leoni?
+Gold Answer: ['David Weissman']
+
+InstructRAG Response (Accuracy=1, F1=0.14):
+  Based on the information provided in Documents 3 and 10, the screenwriter with credits for "Evolution" who co-wrote a film starring Nicolas Cage and Téa Leoni is David Weissman.
+
+No RAG Response (Accuracy=0, F1=0.50):
+  
+[David Koepp](https://en.wikipedia.org/wiki/David_Koepp)
+
+Vanilla RAG Response (Accuracy=0, F1=0.00):
+  
+The screenwriter is Scott Rosenberg.
+
+Self-RAG Response (Accuracy=0, F1=0.11):
+  The screenwriter with credits for "Evolution" who co-wrote a film starring Nicolas Cage and Téa Leoni is David Diamond.
+
+----------------------------------------------------------------------------------------------------
+
+--- InstructRAG WEAKNESSES (Incorrect when others succeed) ---
+
+Example 1:
+Question: Are Ferocactus and Silene both types of plant?
+Gold Answer: ['yes']
+
+InstructRAG Response (Accuracy=0, F1=0.00):
+  no, Ferocactus and Silene are not both types of plants
+
+No RAG Response (Accuracy=1, F1=0.25):
+  
+Yes, they are both types of plant.
+
+Vanilla RAG Response (Accuracy=1, F1=0.25):
+  
+Yes, they are both types of plants.
+
+
+Self-RAG Response (Accuracy=1, F1=0.20):
+  Yes, Ferocactus and Silene are both types of plants.
+
+----------------------------------------------------------------------------------------------------
+
+Example 2:
+Question: What city did the Freebooters F.C. soccer team lose in that is now known as Croke Park?
+Gold Answer: ['Dublin']
+
+InstructRAG Response (Accuracy=0, F1=0.00):
+  Based on the information provided in Document 8, the Freebooters F.C. soccer team lost in the city of Jones Road, which is now known as Croke Park.
+
+No RAG Response (Accuracy=1, F1=0.22):
+  
+The Freebooters F.C. soccer team lost in Dublin, Ireland.
+
+Vanilla RAG Response (Accuracy=1, F1=0.11):
+  
+The city that the Freebooters F.C. soccer team lost in that is now known as Croke Park is Dublin.
+
+Self-RAG Response (Accuracy=1, F1=0.05):
+  The Freebooters F.C. soccer team lost the Irish Cup final to Cliftonville F.C. in the first Irish Cup final to be played outside Belfast.The match was played at the City and County Grounds, Jones Road, Dublin, which is now known as Croke Park.
+
+----------------------------------------------------------------------------------------------------
+
+
+====================================================================================================
+SELF-RAG - STRENGTHS AND WEAKNESSES
+====================================================================================================
+
+--- Self-RAG STRENGTHS (Correct when others fail) ---
+
+Example 1:
+Question: What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?
+Gold Answer: ['Animorphs']
+
+Self-RAG Response (Accuracy=1, F1=0.33):
+  The Animorphs series by K.A. Applegate.
+
+No RAG Response (Accuracy=0, F1=0.00):
+  
+The answer is
+
+Vanilla RAG Response (Accuracy=0, F1=0.00):
+  
+The answer is the "Ender's Game" series by Orson Scott Card.
+
+InstructRAG Response (Accuracy=0, F1=0.00):
+  Based on the information provided in Documents 3 and 9, the science fantasy young adult series that is told in first person and has a set of companion books narrating the stories of enslaved worlds and alien species is "The Hork-Bajir Chronicles" by K. A. Applegate.
+
+----------------------------------------------------------------------------------------------------
+
+Example 2:
+Question: Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?
+Gold Answer: ['Scotch Collie']
+
+Self-RAG Response (Accuracy=1, F1=0.12):
+  The Manchester Terrier is a breed of dog that is related to the Gordon Setter and the Irish Setter.The Scotch Collie is a type of Collie that is related to the Gordon Setter and the Irish Setter.
+
+No RAG Response (Accuracy=0, F1=0.00):
+  The Manchester Terrier.
+
+Vanilla RAG Response (Accuracy=0, F1=0.00):
+  
+The Manchester Terrier's ancestors include Gordon and Irish Setters.
+
+InstructRAG Response (Accuracy=0, F1=0.00):
+  the Manchester Terrier. According to Document 4, the Russian Toy Terrier (which is the same breed as the Manchester Terrier) has ancestors that include Gordon and Irish Setters. Similarly, Document 9 states that the Toy Manchester Terrier is a breed of dog that was bred down in size from the Manchester Terrier, and neither the Fédération Cynologique Internationale nor The Kennel Club recognize a Toy variety of the Manchester Terrier. Therefore, it can be inferred that the Manchester Terrier's ancestors include Gordon and Irish Setters
+
+----------------------------------------------------------------------------------------------------
+
+--- Self-RAG WEAKNESSES (Incorrect when others succeed) ---
+
+Example 1:
+Question: Which band, Letters to Cleo or Screaming Trees, had more members?
+Gold Answer: ['Letters to Cleo']
+
+Self-RAG Response (Accuracy=0, F1=0.00):
+  Screaming Trees had more members, with a total of 5.
+
+No RAG Response (Accuracy=1, F1=0.67):
+  
+Letters to Cleo had more members.
+
+Vanilla RAG Response (Accuracy=1, F1=0.67):
+  
+Letters to Cleo had more members.
+
+InstructRAG Response (Accuracy=1, F1=0.07):
+  Based on the information provided in the documents, Screaming Trees had more members than Letters to Cleo.
+
+According to Document 2 (Truly), Screaming Trees featured seven members: singer-guitarist Robert Roth, bassist Hiro Yamamoto, drummer Mark Pickerel, and four other members who are not identified by name.
+
+On the other hand, Document 1 (Letters to Cleo) lists only six members of the band: Kay Hanley, Greg McKenna, Michael Eisenstein, Stacy Jones, Scott Riebling, and Tom Polce.
+
+Therefore, Screaming Trees had more members than Letters to Cleo.
+
+----------------------------------------------------------------------------------------------------
+
+Example 2:
+Question: What race track in the midwest hosts a 500 mile race eavery May?
+Gold Answer: ['Indianapolis Motor Speedway']
+
+Self-RAG Response (Accuracy=0, F1=0.00):
+  Darlington Raceway in Darlington, South Carolina
+
+No RAG Response (Accuracy=1, F1=1.00):
+  
+Indianapolis Motor Speedway
+
+Vanilla RAG Response (Accuracy=1, F1=0.50):
+  
+The Indianapolis Motor Speedway hosts a 500 mile race every May.
+
+InstructRAG Response (Accuracy=1, F1=0.06):
+  Based on the information provided in Documents 1, 2, 4, 5, 6, 7, 8, and 10, the race track in the Midwest that hosts a 500-mile race every May is the Indianapolis Motor Speedway.
+
+Document 4 mentions that the Indianapolis Motor Speedway is the home of the Indianapolis 500 and the Brickyard 400, and Document 7 states that Johnny Rutherford, a former race driver, won the Indy 500 in 1974, 1976, and 1980. Additionally, Document 8 mentions that the 1957 Indianapolis 500 was held on May 30 of that year.
+
+Therefore, based on the information provided, the race track in the Midwest that hosts a 500-mile race every May is the Indianapolis Motor Speedway.
+
+----------------------------------------------------------------------------------------------------
+
+
+====================================================================================================
+VERBOSITY COMPARISON
+====================================================================================================
+
+Example 1 (Length range: 354 words):
+Question: Creolized forms of which language are found in traditional African religions of Africa with some influence from Christianity?
+Gold Answer: ['Kongo']
+
+No RAG (2 words, Accuracy=0, F1=0.00):
+  
+* [answer](https://en.wikipedia.org/wiki/Creole_language)
+
+Vanilla RAG (2 words, Accuracy=1, F1=0.67):
+  
+Kongo language
+
+InstructRAG (356 words, Accuracy=1, F1=0.01):
+  Based on the information provided in Documents 1, 2, 3, 4, 7, 8, and 10, creolized forms of the Kongo language are found in traditional African religions of Africa with some influence from Christianity.
+
+Document 1 mentions that Kongo is one of the Bantu languages spoken in the tropical forests of the Democratic Republic of the Congo, the Republic of the Congo, and Angola. It is a tonal language and was spoken by many of those who were taken from the region and sold as slaves in the Americas. This indicates that Kongo was influenced by the contact with other cultures, including Christianity, during the transatlantic slave trade.
+
+Document 2 mentions that traditional Berber religion is the ancient and native set of beliefs and deities adhered to by the Berber autochthones of North Africa. It also states that many ancient Berber beliefs were developed locally, while others were influenced over time through contact with other traditional African religions, such as the Ancient Egyptian religion, or borrowed during antiquity from the Punic religion, Judaism, Iberian mythology, and the Hellenistic religion. This suggests that traditional African religions have been influenced by various cultures and religions, including Christianity.
+
+Document 3 mentions that traditional African religions have faced persecution from the proponents of different ideologies, including Islam and Christianity. This suggests that traditional African religions have been influenced by the spread of Islam and Christianity in Africa.
+
+Document 7 mentions that the Brotherhood of the Cross and Star (BCS) is a religious organization that differs from mainstream Christianity in that it maintains that its founder, Olumba Olumba Obu, is the Holy Spirit personified, thus giving him the attributes of both God and Jesus Christ. This suggests that BCS incorporates elements of traditional African religions into Christian teaching.
+
+Document 8 mentions that Afro-American religions are a number of related religions that developed in the Americas in various nations of Latin America, the Caribbean, and the southern United States. They derive from traditional African religions of Africa with some influence from Christianity. This suggests that creolized forms of traditional African languages are found in Afro-American religions.
+
+Therefore, based on the information provided
+
+Self-RAG (18 words, Accuracy=0, F1=0.00):
+  Creolized forms of which language are found in traditional African religions of Africa with some influence from Christianity?
+
+----------------------------------------------------------------------------------------------------
+
+Example 2 (Length range: 352 words):
+Question: Jean-Paul Sartre or George Bernard Shaw  have more influence on turn of the century literature?
+Gold Answer: ['George Bernard Shaw']
+
+No RAG (14 words, Accuracy=0, F1=0.12):
+  
+Sartre's influence on turn of the century literature is more than that of Shaw.
+
+Vanilla RAG (15 words, Accuracy=1, F1=0.35):
+  
+Jean-Paul Sartre or George Bernard Shaw  have more influence on turn of the century literature?
+
+InstructRAG (366 words, Accuracy=1, F1=0.02):
+  Based on the information provided in the documents, it can be seen that both Jean-Paul Sartre and George Bernard Shaw were influential figures in turn of the century literature.
+
+Document 1 provides insight into Sartre's transition from traditional phenomenological thinking and his break from Edmund Husserl's school of thought, which demonstrates his unique perspective and approach to philosophy. This transition is evident in his essay "The Transcendence of the Ego," which demonstrates his study and hybridization of phenomenology and ontology.
+
+Document 2 highlights Sartre's influence on the works of other writers, including his analysis of Genet's psychology and morality in "Saint Genet, Actor and Martyr." This suggests that Sartre's ideas and philosophies had a significant impact on the literary world of the time.
+
+Document 3 provides evidence of Shaw's influence on the literary world, as it is an academic journal dedicated to the study of his works and life. This suggests that Shaw's ideas and philosophies were widely studied and discussed among scholars and literary critics of the time.
+
+Document 4 highlights the intersection of Sartre and Shaw's lives, as they were both involved in the French intellectual scene of the time. This suggests that their ideas and philosophies were likely to have influenced each other, and that they may have had a significant impact on turn of the century literature as a result.
+
+Document 5 provides personal insight into the relationship between Sartre and Beauvoir, which suggests that their ideas and philosophies were deeply intertwined. This may have had an impact on the literary world of the time, as they were both influential figures in the French intellectual scene.
+
+Document 6 provides a brief overview of Sartre's life and work, which highlights his influence on 20th-century French philosophy and Marxism. This suggests that his ideas and philosophies had a significant impact on the literary world of the time.
+
+Document 7 highlights the mission of the Gingold Theatrical Group, which is to present works that carry the humanitarian values of Shaw. This suggests that Shaw's ideas and philosophies continue to be influential in the literary world today.
+
+Document 8 provides evidence of the influence of Sartre's ideas on the musical world, as it is an EP
+
+Self-RAG (20 words, Accuracy=0, F1=0.00):
+  Jean-Paul Sartre had a significant influence on turn of the century literature, particularly in the areas of existentialism and phenomenology.
+
+----------------------------------------------------------------------------------------------------
+
+Example 3 (Length range: 346 words):
+Question: Who was the director of the film featuring the character "Supah Ninjas"?
+Gold Answer: ['Don Hall']
+
+No RAG (2 words, Accuracy=0, F1=0.00):
+  
+### Explanation:
+
+Vanilla RAG (14 words, Accuracy=0, F1=0.00):
+  
+Jonathan A. Rosenbaum was the director of the film featuring the character "Supah Ninjas".
+
+
+InstructRAG (348 words, Accuracy=0, F1=0.00):
+  Based on the information provided in the documents, the director of the film featuring the character "Supah Ninjas" is Lucas Cruikshank.
+
+Document 1 mentions that Jonathan A. Rosenbaum is a television director and producer, but it does not mention him as the director of any films featuring the character "Supah Ninjas".
+
+Document 2 mentions that Gracie Dzienny played the role of Amanda McKay on the television series "Supah Ninjas", but it does not mention her as the director of any films featuring the character.
+
+Document 3 mentions that Fred 2: Night of the Living Fred is a 2011 television comedy film, and that John Cena returns as Mr. Figglehorn (Fred's imaginary father) in the film. However, it does not mention the director of the film.
+
+Document 4 mentions that Carlos Knight co-starred as Owen Reynolds in the television series "Supah Ninjas", but it does not mention him as the director of any films featuring the character.
+
+Document 5 mentions that Chris Farley starred in the 1997 film Beverly Hills Ninja, but it does not mention the director of the film.
+
+Document 6 mentions that Ryan Potter is an actor and martial artist who starred in the television series "Supah Ninjas", but it does not mention him as the director of any films featuring the character.
+
+Document 7 mentions that Daniel Romer played the role of Trumbull in the television series "Supah Ninjas", but it does not mention him as the director of any films featuring the character.
+
+Document 8 mentions that Varsity Pictures is a film and television production company that produced the television series "Supah Ninjas", but it does not mention the company as the director of any films featuring the character.
+
+Document 9 mentions that Big Hero 6 is a 2014 American 3D computer-animated superhero-comedy film produced by Walt Disney Animation Studios, but it does not mention the director of the film.
+
+Document 10 mentions that Supah Ninjas is an American action-comedy superhero series created by Leo Chu and Eric Garcia, but it does not mention the director of any films featuring the character.
+
+Therefore, based
+
+Self-RAG (3 words, Accuracy=0, F1=0.00):
+  Jonathan A. Rosenbaum
+
+----------------------------------------------------------------------------------------------------
+
+
+====================================================================================================
+CHARACTERISTIC EXAMPLES: ALL 4 MODELS COMPARED
+====================================================================================================
+Examples showing the distinctive behavior patterns of all four architectures
+====================================================================================================
+
+CHARACTERISTIC EXAMPLE 1
+----------------------------------------------------------------------------------------------------
+Question: Creolized forms of which language are found in traditional African religions of Africa with some influence from Christianity?
+Gold Answer: ['Kongo']
+
+Performance Summary:
+  No RAG              : Accuracy=0, F1=0.00, Length=2 words
+  Vanilla RAG         : Accuracy=1, F1=0.67, Length=2 words
+  InstructRAG         : Accuracy=1, F1=0.01, Length=356 words
+  Self-RAG            : Accuracy=0, F1=0.00, Length=18 words
+
+No RAG Response:
+  * [answer](https://en.wikipedia.org/wiki/Creole_language)
+
+Vanilla RAG Response:
+  Kongo language
+
+InstructRAG Response:
+  Based on the information provided in Documents 1, 2, 3, 4, 7, 8, and 10, creolized forms of the Kongo language are found in traditional African religions of Africa with some influence from Christianity.
+
+Document 1 mentions that Kongo is one of the Bantu languages spoken in the tropical forests of the Democratic Republic of the Congo, the Republic of the Congo, and Angola. It is a tonal language and was spoken by many of those who were taken from the region and sold as slaves in the Americas. Th... [truncated]
+
+Self-RAG Response:
+  Creolized forms of which language are found in traditional African religions of Africa with some influence from Christianity?
+
+====================================================================================================
+
+CHARACTERISTIC EXAMPLE 2
+----------------------------------------------------------------------------------------------------
+Question: Jean-Paul Sartre or George Bernard Shaw  have more influence on turn of the century literature?
+Gold Answer: ['George Bernard Shaw']
+
+Performance Summary:
+  No RAG              : Accuracy=0, F1=0.12, Length=14 words
+  Vanilla RAG         : Accuracy=1, F1=0.35, Length=15 words
+  InstructRAG         : Accuracy=1, F1=0.02, Length=366 words
+  Self-RAG            : Accuracy=0, F1=0.00, Length=20 words
+
+No RAG Response:
+  Sartre's influence on turn of the century literature is more than that of Shaw.
+
+Vanilla RAG Response:
+  Jean-Paul Sartre or George Bernard Shaw  have more influence on turn of the century literature?
+
+InstructRAG Response:
+  Based on the information provided in the documents, it can be seen that both Jean-Paul Sartre and George Bernard Shaw were influential figures in turn of the century literature.
+
+Document 1 provides insight into Sartre's transition from traditional phenomenological thinking and his break from Edmund Husserl's school of thought, which demonstrates his unique perspective and approach to philosophy. This transition is evident in his essay "The Transcendence of the Ego," which demonstrates his study... [truncated]
+
+Self-RAG Response:
+  Jean-Paul Sartre had a significant influence on turn of the century literature, particularly in the areas of existentialism and phenomenology.
+
+====================================================================================================
+
+CHARACTERISTIC EXAMPLE 3
+----------------------------------------------------------------------------------------------------
+Question: Who was the director of the film featuring the character "Supah Ninjas"?
+Gold Answer: ['Don Hall']
+
+Performance Summary:
+  No RAG              : Accuracy=0, F1=0.00, Length=2 words
+  Vanilla RAG         : Accuracy=0, F1=0.00, Length=14 words
+  InstructRAG         : Accuracy=0, F1=0.00, Length=348 words
+  Self-RAG            : Accuracy=0, F1=0.00, Length=3 words
+
+No RAG Response:
+  ### Explanation:
+
+Vanilla RAG Response:
+  Jonathan A. Rosenbaum was the director of the film featuring the character "Supah Ninjas".
+
+InstructRAG Response:
+  Based on the information provided in the documents, the director of the film featuring the character "Supah Ninjas" is Lucas Cruikshank.
+
+Document 1 mentions that Jonathan A. Rosenbaum is a television director and producer, but it does not mention him as the director of any films featuring the character "Supah Ninjas".
+
+Document 2 mentions that Gracie Dzienny played the role of Amanda McKay on the television series "Supah Ninjas", but it does not mention her as the director of any films featurin... [truncated]
+
+Self-RAG Response:
+  Jonathan A. Rosenbaum
+
+====================================================================================================
+
+CHARACTERISTIC EXAMPLE 4
+----------------------------------------------------------------------------------------------------
+Question: What is the character's name for which Anna Leonidovna Kovalchuk won a prize in the legal festival "Law and Society"?
+Gold Answer: ['Chief Detective Maria Shvetsova']
+
+Performance Summary:
+  No RAG              : Accuracy=0, F1=0.00, Length=6 words
+  Vanilla RAG         : Accuracy=0, F1=0.18, Length=21 words
+  InstructRAG         : Accuracy=0, F1=0.00, Length=342 words
+  Self-RAG            : Accuracy=0, F1=0.00, Length=21 words
+
+No RAG Response:
+  - [ ] Anna Leonidovna Kovalchuk
+
+Vanilla RAG Response:
+  The character's name for which Anna Leonidovna Kovalchuk won a prize in the legal festival "Law and Society" is Maria Shvetsova.
+
+InstructRAG Response:
+  Based on the provided documents, Anna Kovalchuk won the prize in the legal festival "Law and Society" for her work in the critical legal studies movement.  In the book, Unger explains how the critical legal studies movement has refined and reformulated the major themes of leftist and progressive legal theorists, namely the critique of formalism and objectivism in legal doctrine, and the use of legal thought in the book, Unger argues that law and legal thought in the character's name for which ch... [truncated]
+
+Self-RAG Response:
+  The character's name for which Anna Leonidovna Kovalchuk won a prize in the legal festival "Law and Society" is Taina Sledstviya.
+
+====================================================================================================
+
+CHARACTERISTIC EXAMPLE 5
+----------------------------------------------------------------------------------------------------
+Question: "This Ole House" topped the UK chart in 1981 in a recording by a platinum-selling British rock and roll singer whose recording and performing career began when? 
+Gold Answer: ['in the late 1960s']
+
+Performance Summary:
+  No RAG              : Accuracy=0, F1=0.07, Length=27 words
+  Vanilla RAG         : Accuracy=0, F1=0.07, Length=25 words
+  InstructRAG         : Accuracy=1, F1=0.02, Length=326 words
+  Self-RAG            : Accuracy=0, F1=0.00, Length=2 words
+
+No RAG Response:
+  "This Ole House" topped the UK chart in 1981 in a recording by a platinum-selling British rock and roll singer whose recording and performing career began when?
+
+Vanilla RAG Response:
+  Shakin' Stevens' recording of "This Ole House" topped the UK chart in 1981.  Stevens' recording and performing career began when he was 15 years old.
+
+InstructRAG Response:
+  Based on the information provided in Documents 2, 3, 4, 5, 6, 7, 8, 9, and 10, the answer to the question "This Ole House" topped the UK chart in 1981 in a recording by a platinum-selling British rock and roll singer whose recording and performing career began in the late 1960s is: Shakin' Stevens.
+
+Document 2 states that "This Ole House" was recorded by Lucifer's Friend, a band that returned to a more hard rock oriented style with less of a progressive rock sound in their album "Mind Exploding"... [truncated]
+
+Self-RAG Response:
+  Shakin' Stevens
+
+====================================================================================================
+
+
+====================================================================================================
+END OF EXAMPLE SHOWCASES
+====================================================================================================

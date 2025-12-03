@@ -1,0 +1,107 @@
+================================================================================
+ACCURACY EDA: PAIRWISE COMPARISON REPORT
+================================================================================
+
+Model Accuracy Statistics:
+--------------------------------------------------------------------------------
+
+No RAG:
+  Accuracy:      15.6%
+  Correct:       1,154 / 7,405
+  Incorrect:     6,251
+
+Vanilla RAG:
+  Accuracy:      25.2%
+  Correct:       1,864 / 7,405
+  Incorrect:     5,541
+
+InstructRAG:
+  Accuracy:      61.3%
+  Correct:       4,538 / 7,405
+  Incorrect:     2,867
+
+================================================================================
+Statistical Significance Testing:
+--------------------------------------------------------------------------------
+
+Friedman Test (Non-Parametric Repeated Measures):
+----------------------------------------
+Null Hypothesis: All models have equal accuracy distributions
+Alternative: At least one model differs significantly
+Note: Appropriate for paired binary data (same examples across models)
+
+  χ² statistic:  4509.2830
+  p-value:       0.000000
+  # examples:    7,405
+  # models:      3
+  Result:        *** Highly significant (p < 0.001)
+
+  ⚠ Friedman test shows significant differences exist between models.
+     See pairwise McNemar's tests below for specific comparisons.
+
+
+Pairwise Statistical Tests (McNemar's Test):
+----------------------------------------
+McNemar's test for paired binary classifications
+Null Hypothesis: The two models have equal accuracy
+
+
+No RAG vs Vanilla RAG:
+  Contingency Table:
+    Both Correct:  790
+    Both Wrong:    5,177
+    No RAG Only:  364
+    Vanilla RAG Only:  1,074
+  McNemar's χ²:   364.0000
+  p-value:        0.000000
+  Result:         *** Highly significant difference (p < 0.001)
+  ⚠ Vanilla RAG performs significantly better
+
+No RAG vs InstructRAG:
+  Contingency Table:
+    Both Correct:  993
+    Both Wrong:    2,706
+    No RAG Only:  161
+    InstructRAG Only:  3,545
+  McNemar's χ²:   161.0000
+  p-value:        0.000000
+  Result:         *** Highly significant difference (p < 0.001)
+  ⚠ InstructRAG performs significantly better
+
+Vanilla RAG vs InstructRAG:
+  Contingency Table:
+    Both Correct:  1,536
+    Both Wrong:    2,539
+    Vanilla RAG Only:  328
+    InstructRAG Only:  3,002
+  McNemar's χ²:   328.0000
+  p-value:        0.000000
+  Result:         *** Highly significant difference (p < 0.001)
+  ⚠ InstructRAG performs significantly better
+
+================================================================================
+Pairwise Agreement Analysis:
+--------------------------------------------------------------------------------
+
+No RAG          vs Vanilla RAG    :
+  Agreement:       80.6%
+  Both Correct:    790
+  Both Wrong:      5,177
+  No RAG          Only: 364
+  Vanilla RAG     Only: 1,074
+
+No RAG          vs InstructRAG    :
+  Agreement:       50.0%
+  Both Correct:    993
+  Both Wrong:      2,706
+  No RAG          Only: 161
+  InstructRAG     Only: 3,545
+
+Vanilla RAG     vs InstructRAG    :
+  Agreement:       55.0%
+  Both Correct:    1,536
+  Both Wrong:      2,539
+  Vanilla RAG     Only: 328
+  InstructRAG     Only: 3,002
+
+================================================================================
