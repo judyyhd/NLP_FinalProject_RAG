@@ -65,7 +65,45 @@ Comprehensive evaluation scripts and analysis tools.
 
 ### 4. InstructRAG (`instructrag/`)
 
-InstructRAG implementation by teammate.
+InstructRAG implementation - a framework that allows LMs to explicitly denoise retrieved contents by generating rationales for better verifiability and trustworthiness.
+
+**Main Scripts:**
+- `train.sh` - Training script for InstructRAG-FT (fine-tuned version)
+- `eval.sh` - Evaluation script for both ICL and FT versions
+- `generate_rationale.sh` - Generate rationales for retrieved content
+- `hotpot_test.sh` - Test on HotpotQA dataset
+- `instructrag_setup.sh` - Setup script for InstructRAG environment
+- `setup.sh` - General setup with virtual environment
+
+**Source Files** (`src/`):
+- `finetune.py` - Fine-tuning implementation
+- `inference.py` - Inference and generation
+- `data_utils.py` - Data loading and processing utilities
+- `metrics.py` - Evaluation metrics
+- `common_utils.py` - Common utility functions
+- `log_utils.py` - Logging utilities
+- `rag.json` - RAG configuration
+
+**Key Features:**
+- Self-Synthesis: Leverage instruction-tuned LMs to generate supervision for denoising
+- Easy-to-Use: Supports both in-context learning (ICL) and supervised fine-tuning (SFT)
+- Effectiveness: Up to 8.3% better results across benchmarks
+- Noise Robustness: Robust to increased noise ratios
+- Task Transferability: Solves out-of-domain unseen tasks
+
+**Usage:**
+```bash
+cd instructrag
+
+# Train InstructRAG-FT
+conda activate instrag
+bash train.sh
+
+# Evaluate
+bash eval.sh
+```
+
+**Original Repository:** [InstructRAG GitHub](https://github.com/weizhepei/InstructRAG)
 
 ### 5. Self-RAG (`selfrag/`)
 
