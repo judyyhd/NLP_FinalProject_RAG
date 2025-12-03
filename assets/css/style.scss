@@ -55,10 +55,10 @@ body {
    ============================================================================ */
 
 header {
-  background: linear-gradient(135deg, var(--nyu-violet) 0%, var(--deep-violet) 100%);
+  background-color: var(--nyu-violet);
   color: var(--white);
   padding: 2rem 0;
-  border-bottom: 4px solid var(--ultra-violet);
+  border-bottom: 4px solid var(--nyu-violet);
 }
 
 header h1 {
@@ -87,13 +87,13 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 2.5rem;
-  border-bottom: 3px solid var(--ultra-violet);
+  border-bottom: 3px solid var(--nyu-violet);
   padding-bottom: 0.5rem;
 }
 
 h2 {
   font-size: 2rem;
-  border-bottom: 2px solid var(--light-violet-1);
+  border-bottom: 2px solid var(--nyu-violet);
   padding-bottom: 0.4rem;
 }
 
@@ -124,12 +124,12 @@ a {
 }
 
 a:hover {
-  color: var(--ultra-violet);
-  border-bottom: 1px solid var(--ultra-violet);
+  color: var(--medium-violet-1);
+  border-bottom: 1px solid var(--medium-violet-1);
 }
 
 a:visited {
-  color: var(--medium-violet-1);
+  color: var(--nyu-violet);
 }
 
 /* ============================================================================
@@ -196,7 +196,7 @@ thead th {
   padding: 0.75rem;
   text-align: left;
   font-weight: 600;
-  border-bottom: 3px solid var(--ultra-violet);
+  border-bottom: 3px solid var(--nyu-violet);
 }
 
 tbody tr {
@@ -294,9 +294,9 @@ figcaption {
 }
 
 .btn:hover, button:hover, input[type="submit"]:hover {
-  background-color: var(--ultra-violet);
+  background-color: var(--medium-violet-1);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(137, 0, 225, 0.3);
+  box-shadow: 0 4px 12px rgba(87, 6, 140, 0.3);
 }
 
 .btn-secondary {
@@ -367,8 +367,8 @@ footer a {
 }
 
 footer a:hover {
-  color: var(--ultra-violet);
-  border-bottom-color: var(--ultra-violet);
+  color: var(--light-violet-1);
+  border-bottom-color: var(--light-violet-1);
 }
 
 /* ============================================================================
