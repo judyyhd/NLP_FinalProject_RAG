@@ -12,7 +12,7 @@ NLP_FinalProject_RAG/
 ├── no_rag_vanilla_rag/     # Scripts for running baseline and vanilla RAG experiments
 ├── evaluation/             # Evaluation scripts and results
 ├── instructrag/            # InstructRAG implementation (teammate)
-├── selfrag/                # Self-RAG implementation (teammate - to be added)
+├── selfrag/                # Self-RAG implementation (Ghina Al Shdaifat)
 ├── requirements.txt        # Python dependencies
 └── environment.yml         # Conda environment specification
 ```
@@ -107,7 +107,66 @@ bash eval.sh
 
 ### 5. Self-RAG (`selfrag/`)
 
-*To be added by teammate*
+Self-RAG implementation - a framework that trains an arbitrary LM to learn to retrieve, generate, and critique passages and its own generations using special reflection tokens.
+
+**Main Scripts:**
+- `run_selfrag.sh` - SLURM batch script for running Self-RAG inference on HPC
+- `setup.sh` - Original conda-based setup (alternative method)
+
+**Core Files:**
+- `retrieval_lm/run_short_form_fixed.py` - Main inference script for question answering
+- `requirements.txt` - Python dependencies for pip installation
+- `environment.yml` - Conda environment specification
+
+**Key Features:**
+- **Adaptive Retrieval**: Dynamically decides when to retrieve information based on task needs
+- **Self-Reflection**: Generates critique tokens to assess relevance, support, and utility of retrieved passages
+- **Flexible Inference**: Supports multiple retrieval modes (always, adaptive, no retrieval)
+- **Special Tokens**: Uses reflection tokens for retrieval decisions, relevance assessment, groundedness checking, and utility evaluation
+
+**HPC Setup (NYU Greene):**
+```bash
+cd selfrag
+
+# Create virtual environment
+python3 -m venv --system-site-packages selfrag_env
+source selfrag_env/bin/activate
+
+# Install dependencies
+pip install --upgrade pip
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip install vllm==0.2.0 transformers==4.36.2 datasets==2.15.0
+pip install tqdm spacy scikit-learn jsonlines nltk sacrebleu==2.4.0 rouge_score==0.1.2
+pip install einops sentencepiece accelerate tokenizers ray pandas pyarrow
+
+# Download spacy model
+python -m spacy download en_core_web_sm
+```
+
+**Running Inference:**
+```bash
+# Submit batch job
+sbatch run_selfrag.sh
+
+# Monitor job
+squeue -u $USER
+tail -f selfrag_<JOBID>.out
+```
+
+**Key Parameters:**
+- `--model_name`: Model to use (selfrag/selfrag_llama2_7b)
+- `--mode`: Retrieval mode (adaptive_retrieval, always_retrieve, no_retrieval)
+- `--threshold`: Retrieval threshold for adaptive mode (default: 0.2)
+- `--max_new_tokens`: Maximum tokens to generate (default: 100)
+- `--ndocs`: Number of documents to retrieve (default: 10)
+- `--use_groundness`: Enable groundedness reflection
+- `--use_utility`: Enable utility reflection
+- `--use_seqscore`: Enable sequence scoring
+
+**Output Format:**
+Results are saved as JSON files in `results/` directory with predictions, retrieval decisions, and reflection scores for each example.
+
+**Original Repository:** [Self-RAG GitHub](https://github.com/AkariAsai/self-rag)
 
 ## Metrics
 
