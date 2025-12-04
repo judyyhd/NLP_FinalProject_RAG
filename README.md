@@ -12,7 +12,7 @@ NLP_FinalProject_RAG/
 ├── no_rag_vanilla_rag/     # Scripts for running baseline and vanilla RAG experiments
 ├── evaluation/             # Evaluation scripts and results
 ├── instructrag/            # InstructRAG implementation (teammate)
-├── selfrag/                # Self-RAG implementation (Ghina Al Shdaifat)
+├── selfrag/                # Self-RAG implementation 
 ├── requirements.txt        # Python dependencies
 └── environment.yml         # Conda environment specification
 ```
