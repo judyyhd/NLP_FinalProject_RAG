@@ -11,7 +11,7 @@ NLP_FinalProject_RAG/
 ├── data_chunking/          # Scripts for preprocessing and chunking training data
 ├── no_rag_vanilla_rag/     # Scripts for running baseline and vanilla RAG experiments
 ├── evaluation/             # Evaluation scripts and results
-├── instructrag/            # InstructRAG implementation (teammate)
+├── instructrag/            # InstructRAG implementation 
 ├── selfrag/                # Self-RAG implementation 
 ├── requirements.txt        # Python dependencies
 └── environment.yml         # Conda environment specification
