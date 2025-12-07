@@ -124,12 +124,12 @@ Experiments conducted on multiple data scales:
 #### Overall Performance Comparison
 [Table comparing all models across metrics]
 
-| Model | EM | F1 | Accuracy | Semantic Sim |
-|-------|-----|-----|----------|--------------|
-| No RAG | X.XX | X.XX | X.XX | X.XX |
-| Vanilla RAG | X.XX | X.XX | X.XX | X.XX |
-| Self-RAG | X.XX | X.XX | X.XX | X.XX |
-| InstructRAG | X.XX | X.XX | X.XX | X.XX |
+| Model       | EM    | F1    | Accuracy | Length | Semantic Sim |
+| ----------- | ----- | ----- | -------- | ------ | ------------ |
+| No RAG      | 6.28  | 13.55 | 15.58    | 6.7    | 32.62        |
+| Vanilla RAG | 3.57  | 14.55 | 25.17    | 14.5   | 35.11        |
+| Self-RAG    | 14.42 | 30.35 | 48.85    | 11.8   | 48.75        |
+| InstructRAG | 3.30  | 11.82 | 61.28    | 53.9   | 39.16        |
 
 #### Performance by Data Size
 [Graph showing how models scale with data]
