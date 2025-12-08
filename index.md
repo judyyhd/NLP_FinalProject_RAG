@@ -188,7 +188,7 @@ Brief overview of the approaches you compared:
 ---
 
 ## Experiments
-
+<!--
 ### Experimental Setup
 - Hardware: [GPU type, memory]
 - Software: Python version, key libraries
@@ -201,6 +201,19 @@ Experiments conducted on multiple data scales:
 - Medium: 1K-5K examples (development)
 - Large: 10K+ examples (comprehensive evaluation)
 - Full: Complete train/dev/test sets
+-->
+### Experimental Setup
+- **Hardware.** NYU Greene HPC cluster; single-GPU inference per run on **NVIDIA A100 80GB** (no multi-GPU training).
+- **Software.** Python (≥3.10), PyTorch, Hugging Face *transformers*, FAISS (for indexing/retrieval), and *sentence-transformers* (`all-MiniLM-L6-v2`) for semantic similarity. Runs use our repo’s unified data converter and evaluation harness.
+- **Training details.** **No fine-tuning** performed.  
+  - **Baseline / Vanilla RAG / Self-RAG:** released checkpoints, inference-only.  
+  - **InstructRAG:** **ICL** variants (0-shot and 1-shot) only; no additional SFT by us.  
+  - Common generation knobs aligned across models (e.g., temperature, max_new_tokens) with fixed seeds for comparability.
+- **Evaluation protocol.** All models consume the **same converted HotpotQA distractor dev set**. We compute **EM, F1, Accuracy, Semantic Similarity, and Length**, averaging over the set. Identical preprocessing and prompt construction ensure apples-to-apples comparison.
+
+### Dataset Sizes
+- **Reported runs:** **Full HotpotQA dev (distractor)** after conversion/harmonization to our unified schema.  
+- (During debugging we occasionally used small slices for quick checks; only full-dev results are reported.)
 
 ---
 
