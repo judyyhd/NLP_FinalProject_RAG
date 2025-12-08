@@ -255,21 +255,57 @@ Common failure patterns:
 ---
 
 ## Conclusion
-
+<!--
 Summary of:
 - What you accomplished
 - Key takeaways for practitioners
 - Contributions to understanding RAG systems
+-->
+### What we accomplished
+We built a unified, apples-to-apples evaluation pipeline for HotpotQA (distractor setting) and ran four systems—No RAG, Vanilla RAG, Self-RAG, and InstructRAG—on the **full converted dev set** using the same inputs and metrics. Self-RAG delivered the strongest balance across EM/F1 and semantic similarity with concise, verifiable answers, while InstructRAG achieved the highest accuracy but produced much longer outputs. 
+
+### Key takeaways for practitioners
+- **Retrieval control matters.** Unfiltered retrieval can add noise; reflective control (as in Self-RAG) helps decide *when* to retrieve and *what* to keep, improving faithfulness and precision.  
+- **Match method to metric & workflow.** If you need concise, easy-to-verify answers (EM/F1, short outputs), Self-RAG’s calibrated verbosity is a good fit. If you value broader hit-rates/accuracy with richer rationales, InstructRAG can help—at higher verification cost.  
+- **Optimize for verification cost.** Longer rationale chains are costlier to check and more prone to drift; structured retrieval + evidence checks reduce review overhead.
+
+### Contributions to understanding RAG systems
+- A head-to-head comparison showing how **reasoning-supervision choices** (fixed retrieval, reflective retrieval, rationale-driven prompting) lead to **qualitatively different outputs** and trade-offs across EM/F1/accuracy/semantic similarity.  
+- Clear evidence that **ICL design** (one-shot > zero-shot) and **backbone strength** (Llama-3 > ft-Llama-3 > Llama-2) materially affect InstructRAG in our setup.  
+- An argument (with code and results) for **task-aligned evaluation** beyond span-matching—tracking **faithfulness, concision, and stability**—so teams can balance accuracy gains against compute and human-verification effort.
+
+
+
+
+
 
 ---
 
 ## References
-
+<!--
 1. HotpotQA paper
 2. Self-RAG paper
 3. InstructRAG paper
 4. Llama 2 paper
 5. Other relevant citations
+-->
+1. Amazon Web Services. *What is Retrieval-Augmented Generation?* https://aws.amazon.com/what-is/retrieval-augmented-generation/ (Accessed: 2024-12-03).
+
+2. Akari Asai, Xinyang Geng, Matthew E. Peters, Eunsol Choi. *Self-RAG: Learning to Retrieve, Generate, and Critique Through Self-Reflection.* arXiv:2310.11511 (2023). https://arxiv.org/abs/2310.11511
+
+3. Patrick Lewis, Ethan Perez, Aleksandra Piktus, et al. *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.* arXiv:2005.11401 (2020). https://arxiv.org/abs/2005.11401
+
+4. Chaitanya Sharma. *Retrieval-Augmented Generation: A Comprehensive Survey of Architectures, Enhancements, and Robustness Frontiers.* arXiv:2506.00054 (2025). https://arxiv.org/abs/2506.00054
+
+5. Hugo Touvron, Louis Martin, Kevin Stone, et al. *Llama 2: Open Foundation and Fine-Tuned Chat Models.* arXiv:2307.09288 (2023). https://arxiv.org/abs/2307.09288
+
+6. Sentence Transformers. *all-MiniLM-L6-v2.* https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2 (2021).
+
+7. Zhepei Wei, Wei-Lin Chen, Yu Meng. *InstructRAG: Instructing Retrieval-Augmented Generation via Self-Synthesized Rationales.* arXiv:2406.13629 (2024). https://arxiv.org/abs/2406.13629
+
+8. Zhilin Yang, Peng Qi, Saizheng Zhang, et al. *HotpotQA: A Dataset for Diverse, Explainable Multi-Hop Question Answering.* arXiv:1809.09600 (2018). https://arxiv.org/abs/1809.09600
+
+<sub>Adapted from our poster reference list.</sub>
 
 ---
 
@@ -278,11 +314,11 @@ Summary of:
 - **GitHub Repository:** [Link to NLP_FinalProject_RAG]
 - **Result Files:** [Google Drive link - 2GB results]
 - **Individual Contributions:**
-  - Data Chunking & Vanilla RAG: [Name]
-  - Self-RAG: [Name]
-  - InstructRAG: [Name]
-  - Evaluation: [Name]
-  - Analysis & Visualization: [Name]
+  - No RAG & Vanilla RAG: Judy Yang 
+  - Data Chunking & Self-RAG: Ghina Al Shdaifat
+  - InstructRAG: Huizhen Jin, Shengduo Li, Yixuan Wang
+  - Evaluation: Judy Yang
+  - Analysis & Visualization: All Team Members
 
 ---
 
