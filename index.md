@@ -50,7 +50,7 @@ There are many RAG flavors, but we focus on two that are both technically sound 
 
 ### HotpotQA Dataset
 <!-- - Description of the dataset -->
-**What it is.** HotpotQA is a large, Wikipedia-based QA dataset explicitly designed for **multi-hop** reasoning. Each question typically requires pulling facts from **multiple paragraphs** and linking them before answering. The dataset also provides **sentence-level supporting facts**, enabling evaluation of both answers and the evidence path.
+HotpotQA is a large, Wikipedia-based QA dataset explicitly designed for **multi-hop** reasoning. Each question typically requires pulling facts from **multiple paragraphs** and linking them before answering. The dataset also provides **sentence-level supporting facts**, enabling evaluation of both answers and the evidence path.
 
 **Why it suits multi-hop reasoning**
 - Questions are written to **require** evidence from more than one page (not single-span lookups).
