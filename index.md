@@ -62,12 +62,13 @@ HotpotQA is a large, Wikipedia-based QA dataset explicitly designed for **multi-
 - In *full-wiki*, systems retrieve from the entire Wikipedia dump—raising the bar for retrieval and filtering.
 
 **Quick stats**
-| Item | Value |
-|---|---|
-| Total examples | ~112k |
-| Evidence granularity | Sentence-level supporting facts |
-| Question types | Bridge, Comparison (plus others) |
-| Context (distractor) | 2 gold + 8 distractor paragraphs per example |
+
+| Item                   | Value                                    |
+|:-----------------------|:-----------------------------------------|
+| Total examples         | 112,779                                  |
+| Evidence granularity   | Sentence-level supporting facts          |
+| Question types         | Bridge, Comparison (plus others)         |
+| Context (distractor)   | 2 gold + 8 distractor paragraphs/example |
 
 **Tiny example (illustrative)**
 > *Q:* Which author wrote the novel that the film **X** is based on, and where was that author born?  
@@ -80,11 +81,20 @@ HotpotQA is a large, Wikipedia-based QA dataset explicitly designed for **multi-
 
 
 ### RAG Approaches
+<!---
 Brief overview of the approaches you compared:
 - **Baseline (No RAG):** Direct LLM inference
 - **Vanilla RAG:** Standard retrieval + generation
 - **Self-RAG:** Self-reflective retrieval-augmented generation
 - **InstructRAG:** Instruction-based denoising with rationales
+--->
+- **Baseline (No RAG)** — Direct LLM generation from the question only (no retrieval). Fast and simple, but prone to parametric hallucinations on factual queries.
+
+- **Vanilla RAG** — Retrieve top-k passages (e.g., dense/TF-IDF retriever) and condition the LM on them during generation. Improves grounding when retrieval is accurate, but can suffer when retrieved evidence is noisy.
+
+- **Self-RAG** — Adds *reflection* signals so the model can decide **when** to retrieve, assess **relevance/groundedness/utility**, and re-rank/use evidence accordingly. Aims for more selective retrieval and concise, supported answers.
+
+- **InstructRAG** — Uses instruction-tuned LMs with *denoising rationales* (as demos or fine-tuning signals) to guide reasoning. Tends to produce more detailed, rationale-style outputs—helpful for noisy settings but longer and costlier to verify.
 
 ---
 
