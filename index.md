@@ -126,7 +126,7 @@ Brief overview of the approaches you compared:
 **Quality checks** : After conversion, we run basic validations (field presence, paragraph counts, non-empty questions/answers) to ensure parity across all three systems before evaluation.
 
 ### Model Configurations
-
+<!--
 #### 1. No RAG (Baseline)
 - Model: Llama-2-7b
 - Setup and hyperparameters
@@ -146,13 +146,44 @@ Brief overview of the approaches you compared:
 - Architecture and key features
 - Rationale generation process
 - ICL vs FT variants
+-->
+### 1) No RAG (Baseline)
+- **Model:** Llama-2-7B (direct generation from the question; no retrieval).
+- **Setup:** Uses the shared, converted HotpotQA dev records; executed via the baseline script in the `no_rag_vanilla_rag/` workflow so it shares the same evaluation harness as RAG variants.  
+  *Purpose:* establish a grounding baseline before adding retrieval. :contentReference[oaicite:0]{index=0}
+
+### 2) Vanilla RAG
+- **Model:** Llama-2-7B **with retrieval** (retrieve-then-generate).
+- **Retrieval:** Top-k paragraph retrieval from the provided HotpotQA distractor contexts (2 gold + 8 distractors per example in our converted format).
+- **Configuration:** Single-stage generation conditioned on retrieved passages; same data path and evaluation scripts as the baseline to ensure apples-to-apples comparison. :contentReference[oaicite:1]{index=1}
+
+### 3) Self-RAG
+- **Architecture & key features:** Adds **adaptive retrieval** (decide when to retrieve) and **self-reflection tokens** to score **relevance**, **support/groundedness**, and **utility**, with optional **critique-aware decoding**. Supports multiple modes (always retrieve / adaptive / no retrieval). :contentReference[oaicite:2]{index=2}
+- **Training/usage:** We use the released Self-RAG LM for inference over our unified dev set; experiments are run via the `selfrag/` pipeline in the repo (HPC-ready scripts + environment). :contentReference[oaicite:3]{index=3}
+- **Special tokens & mechanism:** Reflection tokens guide retrieval gating and re-ranking/decoding, improving faithfulness and concision compared to vanilla RAG under the same input format. :contentReference[oaicite:4]{index=4}
+
+### 4) InstructRAG
+- **Architecture & key features:** Instruction-oriented RAG that **generates denoising rationales** to improve verifiability and robustness. The repo provides scripts for **ICL (zero/one-shot)** and **SFT/FT** variants under a unified runner. :contentReference[oaicite:5]{index=5}
+- **Rationale process:** Given retrieved content, the model synthesizes short rationales that filter/clean noisy snippets before answering, yielding rationale-style outputs. :contentReference[oaicite:6]{index=6}
+- **ICL vs. FT variants:** We evaluated **zero-shot** and **one-shot** ICL and compared backbones (**Llama-2**, **Llama-3**, and the authors’ **FT Llama-3** release) using the same converted dev set and harmonized prompts for comparability. :contentReference[oaicite:7]{index=7}
 
 ### Evaluation Metrics
+<!--
 - **Exact Match (EM):** Binary correctness measure
 - **F1 Score:** Token-level overlap
 - **Accuracy:** Answer presence detection
 - **Semantic Similarity:** Embedding-based similarity
 - **Verbosity Analysis:** Response length statistics
+-->
+- **Exact Match (EM)** — Strict binary correctness: the predicted string must exactly match a gold alias (after standard normalization). Best for concise, unambiguous answers.
+
+- **F1 (token-level)** — Harmonic mean of precision/recall over tokens after the same normalization. More tolerant than EM, but can reward verbosity that happens to include the gold tokens.
+
+- **Accuracy (answer presence)** — Lenient hit-rate: 1 if any gold alias appears anywhere in the output, else 0. Useful for rationale-heavy methods; insensitive to extra/conflicting text.
+
+- **Semantic Similarity** — Cosine similarity between embeddings of the model output and gold answer (e.g., SBERT `all-MiniLM-L6-v2`). Captures paraphrase-level agreement but may blur fine-grained distinctions.
+
+- **Verbosity (length)** — Summary stats of response length. Frames trade-offs: longer outputs aid explanation but increase verification cost; shorter outputs are easier to audit.
 
 ---
 
