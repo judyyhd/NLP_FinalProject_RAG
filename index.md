@@ -15,8 +15,8 @@ title: Comparing RAG Systems for Multi-Hop Question Answering
 
 Brief summary of your project (2-3 paragraphs):
 <!--- - What problem did you tackle? --->
-- What methods did you compare?
-- What were your main findings?
+<!--- - What methods did you compare? --->
+<!--- - What were your main findings? --->
 
 We study how different reasoning-supervision strategies affect Retrieval-Augmented Generation (RAG) on multi-hop QA (HotpotQA). Vanilla RAG conditions a generator on retrieved passages via latent-document marginalization (RAG-Sequence / RAG-Token), combining a DPR-style retriever with a seq2seq LM, but can struggle when retrieval introduces noise and when evidence must be synthesized across hops. We compare: (i) Vanilla RAG; (ii) Self-RAG, which learns to decide when to retrieve and to self-assess relevance/support/utility via reflection tokens; and (iii) InstructRAG, which equips an instruction-tuned LM with self-synthesized denoising rationales used either as in-context demonstrations or for supervised fine-tuning. On our setup (Llama-2-7B backbone, Contriever retriever), we evaluate accuracy, exact match (EM), F1, and semantic similarity on HotpotQA. 
 
@@ -49,9 +49,35 @@ There are many RAG flavors, but we focus on two that are both technically sound 
 ## Background
 
 ### HotpotQA Dataset
-- Description of the dataset
-- Why it's suitable for multi-hop reasoning
-- Dataset statistics and examples
+<!-- - Description of the dataset -->
+**What it is.** HotpotQA is a large, Wikipedia-based QA dataset explicitly designed for **multi-hop** reasoning. Each question typically requires pulling facts from **multiple paragraphs** and linking them before answering. The dataset also provides **sentence-level supporting facts**, enabling evaluation of both answers and the evidence path.
+
+**Why it suits multi-hop reasoning**
+- Questions are written to **require** evidence from more than one page (not single-span lookups).
+- Includes **comparison** and **bridge** questions (e.g., compare attributes across two entities; follow a link from one page to another).
+- **Supporting-fact annotations** supervise explainability and allow finer-grained evaluation.
+
+**Noise / distractors**
+- In the common *distractor* setting, each example comes with **10 paragraphs**: **2 gold** + **8 distractors** (retrieved but irrelevant). Models must select the right evidence and ignore plausible noise.
+- In *full-wiki*, systems retrieve from the entire Wikipedia dump—raising the bar for retrieval and filtering.
+
+**Quick stats**
+| Item | Value |
+|---|---|
+| Total examples | ~112k |
+| Evidence granularity | Sentence-level supporting facts |
+| Question types | Bridge, Comparison (plus others) |
+| Context (distractor) | 2 gold + 8 distractor paragraphs per example |
+
+**Tiny example (illustrative)**
+> *Q:* Which author wrote the novel that the film **X** is based on, and where was that author born?  
+> *Needs:* Page A (film → novel) + Page B (author → birthplace) → **answer combines both.**
+
+<!-- - Why it's suitable for multi-hop reasoning
+
+- Dataset statistics and examples -->
+
+
 
 ### RAG Approaches
 Brief overview of the approaches you compared:
