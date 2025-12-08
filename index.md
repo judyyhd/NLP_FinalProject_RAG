@@ -289,23 +289,34 @@ We built a unified, apples-to-apples evaluation pipeline for HotpotQA (distracto
 4. Llama 2 paper
 5. Other relevant citations
 -->
-1. Amazon Web Services. *What is Retrieval-Augmented Generation?* https://aws.amazon.com/what-is/retrieval-augmented-generation/ (Accessed: 2024-12-03).
+## References
 
-2. Akari Asai, Xinyang Geng, Matthew E. Peters, Eunsol Choi. *Self-RAG: Learning to Retrieve, Generate, and Critique Through Self-Reflection.* arXiv:2310.11511 (2023). https://arxiv.org/abs/2310.11511
+1. Amazon Web Services. *[What is Retrieval-Augmented Generation?][aws-rag]* (Accessed: 2024-12-03).
 
-3. Patrick Lewis, Ethan Perez, Aleksandra Piktus, et al. *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.* arXiv:2005.11401 (2020). https://arxiv.org/abs/2005.11401
+2. Akari Asai, Xinyang Geng, Matthew E. Peters, Eunsol Choi. *[Self-RAG: Learning to Retrieve, Generate, and Critique Through Self-Reflection][selfrag]*. arXiv:2310.11511 (2023).
 
-4. Chaitanya Sharma. *Retrieval-Augmented Generation: A Comprehensive Survey of Architectures, Enhancements, and Robustness Frontiers.* arXiv:2506.00054 (2025). https://arxiv.org/abs/2506.00054
+3. Patrick Lewis, Ethan Perez, Aleksandra Piktus, et al. *[Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks][rag-lewis]*. arXiv:2005.11401 (2020).
 
-5. Hugo Touvron, Louis Martin, Kevin Stone, et al. *Llama 2: Open Foundation and Fine-Tuned Chat Models.* arXiv:2307.09288 (2023). https://arxiv.org/abs/2307.09288
+4. Chaitanya Sharma. *[Retrieval-Augmented Generation: A Comprehensive Survey of Architectures, Enhancements, and Robustness Frontiers][rag-survey]*. arXiv:2506.00054 (2025).
 
-6. Sentence Transformers. *all-MiniLM-L6-v2.* https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2 (2021).
+5. Hugo Touvron, Louis Martin, Kevin Stone, et al. *[Llama 2: Open Foundation and Fine-Tuned Chat Models][llama2]*. arXiv:2307.09288 (2023).
 
-7. Zhepei Wei, Wei-Lin Chen, Yu Meng. *InstructRAG: Instructing Retrieval-Augmented Generation via Self-Synthesized Rationales.* arXiv:2406.13629 (2024). https://arxiv.org/abs/2406.13629
+6. Sentence Transformers. *[all-MiniLM-L6-v2][minilm]* (2021).
 
-8. Zhilin Yang, Peng Qi, Saizheng Zhang, et al. *HotpotQA: A Dataset for Diverse, Explainable Multi-Hop Question Answering.* arXiv:1809.09600 (2018). https://arxiv.org/abs/1809.09600
+7. Zhepei Wei, Wei-Lin Chen, Yu Meng. *[InstructRAG: Instructing Retrieval-Augmented Generation via Self-Synthesized Rationales][instructrag]*. arXiv:2406.13629 (2024).
+
+8. Zhilin Yang, Peng Qi, Saizheng Zhang, et al. *[HotpotQA: A Dataset for Diverse, Explainable Multi-Hop Question Answering][hotpotqa]*. arXiv:1809.09600 (2018).
 
 <sub>Adapted from our poster reference list.</sub>
+
+[aws-rag]: https://aws.amazon.com/what-is/retrieval-augmented-generation/
+[selfrag]: https://arxiv.org/abs/2310.11511
+[rag-lewis]: https://arxiv.org/abs/2005.11401
+[rag-survey]: https://arxiv.org/abs/2506.00054
+[llama2]: https://arxiv.org/abs/2307.09288
+[minilm]: https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2
+[instructrag]: https://arxiv.org/abs/2406.13629
+[hotpotqa]: https://arxiv.org/abs/1809.09600
 
 ---
 
@@ -331,7 +342,30 @@ Detailed configuration files, hyperparameters, etc.
 Supplementary tables and figures
 
 ### C. Example Outputs
-Sample model generations with retrieved documents
+**Question:** Are Local H and For Against both from the United States?  
+**Gold Answer:** `yes`
+
+**No RAG** *(Accuracy = 0, F1 = 0.00)*  
+> No, they are not.
+
+**Vanilla RAG** *(Accuracy = 1, F1 = 0.29)*  
+> Yes, both are from the United States.
+
+**InstructRAG** *(Accuracy = 1, F1 = 0.01)*  
+<details><summary>Show response</summary>
+
+Yes, based on the information provided in the documents, Local H and For Against are both from the United States.
+
+Document 5 (Title: Local H) states that Local H is an American rock band originally formed by guitarist and vocalist Scott Lucas, bassist Matt Garcia, drummer Joe Daniels, and lead guitarist John Sparkman in Zion, Illinois in 1987. This indicates that Local H is from Illinois, which is a state in the United States.
+
+Similarly, Document 7 (Title: For Against) mentions that the band has produced material steadily from its 1984 inception to the present, which suggests that For Against has been active for a long time and is likely from the United States.
+
+There is no information in the provided documents to suggest that Local H or For Against are from any other country. Therefore, based on the available evidence, it can be concluded that both Local H and For Against are from the United States.
+</details>
+
+**Self-RAG** *(Accuracy = 1, F1 = 0.17)*  
+> Yes, both Local H and For Against are from the United States.
+
 
 ---
 
