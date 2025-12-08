@@ -106,17 +106,14 @@ Brief overview of the approaches you compared:
 - Dataset splits and subset sizes used
 - Data format conversion for different models
 --->
-**Source & scope.** 
-We use the HotpotQA *distractor* split (each example has 2 gold paragraphs + 8 distractors). We evaluate **only on the full converted dev set**. Since we do not train any models in this study, we do not use the train or test splits.
+**Source & scope.** : We use the HotpotQA *distractor* split (each example has 2 gold paragraphs + 8 distractors). We evaluate **only on the full converted dev set**. Since we do not train any models in this study, we do not use the train or test splits.
 
-**Unified conversion.** 
-We converted the original HotpotQA JSON into a **single, unified schema** so all three pipelines consume the **same inputs**:
+**Unified conversion.** : We converted the original HotpotQA JSON into a **single, unified schema** so all three pipelines consume the **same inputs**:
 - Normalize fields (question, answer, titles, supporting facts).
 - Package the 10 provided context paragraphs per example into a consistent `passages[]` field.
 - Emit a model-agnostic record (JSON/JSONL) used by **Self-RAG**, **Vanilla RAG**, and adapted **InstructRAG**.
 
-**Chunking.** 
-We keep HotpotQA paragraphs **as-is (paragraph-level)** to preserve sentence and cross-paragraph references. No additional windowing or sub-paragraph chunking is applied.
+**Chunking.** : We keep HotpotQA paragraphs **as-is (paragraph-level)** to preserve sentence and cross-paragraph references. No additional windowing or sub-paragraph chunking is applied.
 
 **Split usage.**
 - **Dev set**: used for all evaluations and ablations.
@@ -126,8 +123,7 @@ We keep HotpotQA paragraphs **as-is (paragraph-level)** to preserve sentence and
 - **Self-RAG / Vanilla RAG**: run directly on the unified records produced by the converter (so they share the exact same inputs).
 - **InstructRAG**: lightly adapted to read the same converted records; prompts are constructed from the unified fields so comparisons are apples-to-apples.
 
-**Quality checks.** 
-After conversion, we run basic validations (field presence, paragraph counts, non-empty questions/answers) to ensure parity across all three systems before evaluation.
+**Quality checks.** : After conversion, we run basic validations (field presence, paragraph counts, non-empty questions/answers) to ensure parity across all three systems before evaluation.
 
 ### Model Configurations
 
