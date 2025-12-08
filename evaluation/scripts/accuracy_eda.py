@@ -42,6 +42,7 @@ MODEL_FILES = {
     'no_rag': 'no_rag_devfull_results.json',
     'vanilla_rag': 'vanilla_rag_devfull_results.json',
     'instructrag': 'instructrag_llama2_devfull_results.json',
+    'selfrag': 'selfrag_llama2_devfull_results.json',
 }
 
 
