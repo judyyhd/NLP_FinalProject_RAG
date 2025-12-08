@@ -289,8 +289,6 @@ We built a unified, apples-to-apples evaluation pipeline for HotpotQA (distracto
 4. Llama 2 paper
 5. Other relevant citations
 -->
-## References
-
 1. Amazon Web Services. *[What is Retrieval-Augmented Generation?][aws-rag]* (Accessed: 2024-12-03).
 
 2. Akari Asai, Xinyang Geng, Matthew E. Peters, Eunsol Choi. *[Self-RAG: Learning to Retrieve, Generate, and Critique Through Self-Reflection][selfrag]*. arXiv:2310.11511 (2023).
