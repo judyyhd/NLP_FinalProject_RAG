@@ -14,7 +14,7 @@ title: Comparing RAG Systems for Multi-Hop Question Answering
 ## Abstract
 
 Brief summary of your project (2-3 paragraphs):
-- What problem did you tackle?
+<!--- - What problem did you tackle? --->
 - What methods did you compare?
 - What were your main findings?
 
