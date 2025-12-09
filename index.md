@@ -367,7 +367,7 @@ We built a unified, apples-to-apples evaluation pipeline for HotpotQA (distracto
 
 ## Code and Resources
 
-- **GitHub Repository:** [Judy]
+- [GitHub Repository:] (https://github.com/judyyhd/NLP_FinalProject_RAG.git)
 - **Result Files:** [Judy]
 - **Individual Contributions:**
   - No RAG & Vanilla RAG: Judy Yang 
@@ -383,10 +383,8 @@ We built a unified, apples-to-apples evaluation pipeline for HotpotQA (distracto
 ### A. Implementation Details
 [Judy]
 
-### B. Additional Results
-Supplementary tables and figures
 
-### C. Example Outputs
+### B. Example Outputs
 **Question:** Are Local H and For Against both from the United States?  
 **Gold Answer:** `yes`
 
