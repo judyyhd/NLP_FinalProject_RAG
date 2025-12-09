@@ -367,7 +367,7 @@ We built a unified, apples-to-apples evaluation pipeline for HotpotQA (distracto
 
 ## Code and Resources
 
-- [GitHub Repository:] (https://github.com/judyyhd/NLP_FinalProject_RAG.git)
+- [GitHub Repository:](https://github.com/judyyhd/NLP_FinalProject_RAG.git)
 - **Result Files:** [Judy]
 - **Individual Contributions:**
   - No RAG & Vanilla RAG: Judy Yang 
