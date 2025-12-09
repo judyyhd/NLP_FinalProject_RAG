@@ -220,7 +220,6 @@ Experiments conducted on multiple data scales:
 ### Quantitative Results
 
 #### Overall Performance Comparison
-[Table comparing all models across metrics]
 
 | Model       | EM    | F1    | Accuracy | Length | Semantic Sim |
 | ----------- | ----- | ----- | -------- | ------ | ------------ |
@@ -228,8 +227,6 @@ Experiments conducted on multiple data scales:
 | Vanilla RAG | 3.57  | 14.55 | 25.17    | 14.5   | 35.11        |
 | Self-RAG    | 14.42 | 30.35 | 48.85    | 11.8   | 48.75        |
 | InstructRAG | 3.30  | 11.82 | 61.28    | 53.9   | 39.16        |
-
-#### General Performance for Different Models
 
 ![Core Metrics Comparison](evaluation/outputs/core_metrics.png)
 
@@ -250,36 +247,57 @@ Experiments conducted on multiple data scales:
 ## Discussion
 
 ### Key Findings
-1. **Finding 1:** [Major insight from your results]
-2. **Finding 2:** [Another important observation]
-3. **Finding 3:** [Additional insight]
+1. **Method choice changes answer *style*, not just scores.** Self-RAG, Vanilla RAG, and InstructRAG optimize different parts of the pipeline, yielding qualitatively different outputs; EM/F1 alone can miss faithfulness and verification cost.
+2. **Self-RAG offers the best balance for concise, checkable answers.** With light tuning, it improved EM/F1 and semantic similarity while keeping length moderate—i.e., grounded answers with lower reviewer burden.
+3. **InstructRAG can boost hit-rate but at a cost.** It achieved the highest Accuracy on our setup, yet produced much longer, harder-to-audit responses. In our ICL tests, **one-shot > zero-shot** and **Llama-3 > ft-Llama-3 > Llama-2**.
 
 ### Comparison of Approaches
 
 #### Vanilla RAG
-- Strengths: Simple, interpretable, fast
-- Weaknesses: No noise handling, limited reasoning
-- Best use cases: Clean retrieval scenarios
+- **Strengths:** Simple pipeline; easy to reproduce; fast when retrieval is clean.
+- **Weaknesses:** Susceptible to distractors; limited mechanisms to filter or verify evidence.
+- **Best use cases:** Domains with high-precision indexes or curated corpora where retrieved passages are already reliable.
 
 #### Self-RAG
-- Strengths: Self-correction, adaptive retrieval
-- Weaknesses: Complexity, training overhead
-- Best use cases: Scenarios requiring verification
+- **Strengths:** Adaptive retrieval + reflection helps filter noise; good EM/F1 vs. length trade-off; outputs are concise and grounded.
+- **Weaknesses:** More moving parts than vanilla (gating/critique); mild sensitivity to threshold/weights; slightly higher runtime than baseline.
+- **Best use cases:** Settings requiring verifiable answers and controlled verbosity under imperfect retrieval.
 
 #### InstructRAG
-- Strengths: Explicit denoising, rationale generation
-- Weaknesses: Requires rationale training data
-- Best use cases: Noisy retrieval environments
+- **Strengths:** Rationale-style outputs that can improve hit-rate under noisy contexts; benefits from stronger backbones and ICL.
+- **Weaknesses:** Longer generations increase verification cost; sensitive to demo quality; FT model did not dominate in our harmonized setup.
+- **Best use cases:** Tasks where richer explanations are valued and human review is acceptable (e.g., analysis memos, drafting).
 
 ### Limitations
-- Computational constraints
-- Dataset limitations
-- Methodological considerations
+- **Scope:** Evaluation on the **converted HotpotQA dev (distractor)** split only; no training by us and no full-wiki runs.
+- **Metrics:** Automated metrics may under/over-value verbosity; limited human evaluation of faithfulness.
+- **Implementation bias:** Harmonized data/prompt path (LLaMA-2 centric) may favor certain variants; minimal ablations beyond light Self-RAG tuning.
+- **Systems cost:** We did not report latency or $/token; real-world deployment should consider throughput and review overhead.
 
-### Future Work
-- Potential improvements
-- Additional experiments to explore
-- Open research questions
+## Future Work
+
+- **Implement training (beyond inference-only).**
+  - Fine-tune Self-RAG’s gating/critique on HotpotQA-style data.
+  - Explore InstructRAG SFT with higher-quality rationales; compare to pure ICL.
+  - Measure training gains vs. added compute/latency.
+
+- **Improve answer extraction & normalization.**
+  - Tighten post-processing for short, canonical answers (numbers, names, dates).
+  - Add guardrails for InstructRAG to separate *rationales* from the *final answer*.
+  - Expand alias lists and unit normalization to reduce EM brittleness.
+
+- **Broaden model/dataset coverage.**
+  - Compare additional RAG variants (e.g., adaptive rerankers, multi-step retrievers).
+  - Swap backbones (Llama-3.x sizes, Qwen, Mistral) under the same unified data path.
+  - Run **full-wiki** HotpotQA and other multi-hop sets (MuSiQue, 2WikiMultihopQA).
+
+- **Richer evaluation.**
+  - Add faithfulness/judging with lightweight human audits or LLM-as-judge (with spot-checks).
+  - Track cost/latency vs. accuracy to surface practical deployment trade-offs.
+
+- **Ablations & robustness.**
+  - Sensitivity to retrieval threshold, top-k, and critique weights (Self-RAG).
+  - Noise stress-tests by injecting distractors; measure degradation curves.
 
 ---
 
