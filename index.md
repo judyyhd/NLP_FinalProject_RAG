@@ -25,15 +25,15 @@ Two findings stood out. First, these methods optimize different parts of the pip
 ## Introduction
 
 ### Motivation
-- Why is RAG important for question answering?
+**Why is RAG important for question answering?**
 
 Many real questions require facts that aren’t inside the model’s parameters. Retrieval-Augmented Generation (RAG) tackles this by pulling evidence from a large corpus at inference time and letting the generator condition on that evidence. This reduces parametric hallucination, keeps answers grounded in sources, and makes systems easier to update (swap or reindex the corpus rather than re-train the LM). In short: RAG is a practical bridge between powerful LMs and ever-changing knowledge needs.
 
-- What challenges exist in multi-hop reasoning?
+**What challenges exist in multi-hop reasoning?**
 
 Multi-hop QA (like HotpotQA) forces a model to locate multiple pieces of evidence and connect them—often across documents—before answering. The dataset’s “distractor” setup mixes gold paragraphs with retrieved noise; it also includes comparison questions and supplies sentence-level supporting facts, so models are tested not only on answer spans but also on whether their reasoning points to the right evidence. Together, this makes retrieval, evidence selection, and explanation supervision core challenges for any RAG system.
 
-- Why compare different RAG approaches?
+**Why compare different RAG approaches?**
 
 There are many RAG flavors, but we focus on two that are both technically sound and complementary in how they improve reasoning: Self-RAG, which teaches the model to decide when to retrieve and to self-assess evidence via reflection tokens, and InstructRAG, which leverages instruction-tuned LMs and denoising rationales to make demonstrations more helpful. They target similar goals (better reasoning and grounding) through different mechanisms (learning to control retrieval vs. strengthening instruction/rationale signals), making them directly comparable and, crucially, feasible to implement end-to-end on the same corpus and backbone for a fair study.
 
@@ -229,23 +229,19 @@ Experiments conducted on multiple data scales:
 | Self-RAG    | 14.42 | 30.35 | 48.85    | 11.8   | 48.75        |
 | InstructRAG | 3.30  | 11.82 | 61.28    | 53.9   | 39.16        |
 
-#### Performance by Data Size
-[Graph showing how models scale with data]
+#### General Performance for Different Models
 
 ![Core Metrics Comparison](evaluation/outputs/core_metrics.png)
 
 #### Semantic Similarity Analysis
-[Analysis of semantic similarity patterns]
 
 ![Semantic Similarity](evaluation/outputs/semantic_similarity.png)
 
-#### Response Length Analysis
-[Verbosity comparison across models]
+#### Response Length Comparison
 
 ![Response Length](evaluation/outputs/response_length.png)
 
 #### Between Metrics Agreement
-[Verbosity comparison across models]
 
 ![Metrics Agreement](evaluation/outputs/accuracy_agreement_matrix.png)
 
