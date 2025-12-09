@@ -6,7 +6,7 @@ title: Comparing RAG Systems for Multi-Hop Question Answering
 # Comparing RAG Systems for Multi-Hop Question Answering on HotpotQA
 
 **Course:** Fundamentals of Natural Language Processing  
-**Team Members:** [Add names]  
+**Team Members:** [Ghina Al Shdaifat, Huizhen Jin, Shengduo Li, Yixuan Wang, Judy Yang]  
 **Date:** December 2025
 
 ---
@@ -349,8 +349,8 @@ We built a unified, apples-to-apples evaluation pipeline for HotpotQA (distracto
 
 ## Code and Resources
 
-- **GitHub Repository:** [Link to NLP_FinalProject_RAG]
-- **Result Files:** [Google Drive link - 2GB results]
+- **GitHub Repository:** [Judy]
+- **Result Files:** [Judy]
 - **Individual Contributions:**
   - No RAG & Vanilla RAG: Judy Yang 
   - Data Chunking & Self-RAG: Ghina Al Shdaifat
@@ -363,7 +363,7 @@ We built a unified, apples-to-apples evaluation pipeline for HotpotQA (distracto
 ## Appendix
 
 ### A. Implementation Details
-Detailed configuration files, hyperparameters, etc.
+[Judy]
 
 ### B. Additional Results
 Supplementary tables and figures
