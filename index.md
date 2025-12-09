@@ -12,8 +12,6 @@ title: Comparing RAG Systems for Multi-Hop Question Answering
 ---
 
 ## Abstract
-
-Brief summary of your project (2-3 paragraphs):
 <!--- - What problem did you tackle? --->
 <!--- - What methods did you compare? --->
 <!--- - What were your main findings? --->
@@ -246,19 +244,10 @@ Experiments conducted on multiple data scales:
 
 ![Response Length](evaluation/outputs/response_length.png)
 
-### Qualitative Analysis
+#### Between Metrics Agreement
+[Verbosity comparison across models]
 
-#### Case Studies
-Examples showcasing:
-1. **Success cases:** Where RAG significantly helps
-2. **Failure cases:** Where retrieval introduces noise
-3. **Edge cases:** Interesting model behaviors
-
-#### Error Analysis
-Common failure patterns:
-- Retrieval failures (no relevant docs)
-- Reasoning failures (incorrect multi-hop)
-- Generation failures (hallucination, format issues)
+![Metrics Agreement](evaluation/outputs/accuracy_agreement_matrix.png)
 
 ---
 
@@ -370,8 +359,8 @@ We built a unified, apples-to-apples evaluation pipeline for HotpotQA (distracto
   - No RAG & Vanilla RAG: Judy Yang 
   - Data Chunking & Self-RAG: Ghina Al Shdaifat
   - InstructRAG: Huizhen Jin, Shengduo Li, Yixuan Wang
-  - Evaluation: Judy Yang
-  - Analysis & Visualization: All Team Members
+  - Evaluation & Visualization: Judy Yang
+  - Analysis : All Team Members
 
 ---
 
