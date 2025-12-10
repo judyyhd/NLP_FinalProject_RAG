@@ -30,13 +30,6 @@
 
     <section class="main-content">
       {{ content }}
-
-      <footer class="site-footer">
-        <p>{{ site.course | default: "Fundamentals of Natural Language Processing" }} | {{ site.institution | default: "New York University" }} | {{ site.semester | default: "Fall 2025" }}</p>
-        {% if site.github.is_project_page %}
-          <span class="site-footer-owner"><a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.</span>
-        {% endif %}
-      </footer>
     </section>
   </body>
 </html>

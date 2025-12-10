@@ -33,7 +33,9 @@ This is the **first apples-to-apples comparison of Self-RAG vs. InstructRAG vs. 
 
 **Two surprising insights emerged:**
 
-1. First, these methods optimize different parts of the pipeline and therefore produce **qualitatively different answers**; **span-matching alone** doesn’t fully capture their strengths or failure modes. Second, there’s a practical **trade-off between complexity/compute and “helpfulness.”** **Self-RAG’s** reflection and gated retrieval deliver a **structured, reliable boost** over vanilla RAG with modest tuning, keeping outputs **concise and easier to verify**. **InstructRAG** can **edge higher on hit-rate** in the noisy setting, but its **longer, rationale-style generations** raise verification cost and expose more chances for drift. In our runs, we also observe **one-shot > zero-shot** and **Llama-3 > fine-tuned Llama-3 (authors’ release) > Llama-2**—consistent with backbone strength and our harmonized LLaMA-2-centric code path. **Takeaway:** choose methods by balancing **accuracy gains** against **compute and human verification effort**, and evaluate with **faithfulness, concision, and stability**, not just EM/F1.
+1. **These methods optimize different parts of the pipeline and therefore produce qualitatively different answers**; **span-matching alone** doesn't fully capture their strengths or failure modes. EM/F1 metrics miss the distinctions between Self-RAG's concise, grounded outputs, InstructRAG's rationale-heavy explanations, and Vanilla RAG's variable quality under noise.
+
+2. **There's a practical trade-off between complexity/compute and "helpfulness."** **Self-RAG's** reflection and gated retrieval deliver a **structured, reliable boost** over vanilla RAG with modest tuning, keeping outputs **concise and easier to verify**. **InstructRAG** can **edge higher on hit-rate** in the noisy setting, but its **longer, rationale-style generations** raise verification cost and expose more chances for drift. In our runs, we also observe **one-shot > zero-shot** and **Llama-3 > fine-tuned Llama-3 (authors' release) > Llama-2**—consistent with backbone strength and our harmonized LLaMA-2-centric code path. **Takeaway:** choose methods by balancing **accuracy gains** against **compute and human verification effort**, and evaluate with **faithfulness, concision, and stability**, not just EM/F1.
 
 ---
 
@@ -412,7 +414,8 @@ We built a **unified, no-excuses evaluation pipeline** for HotpotQA and put four
 
 ## Appendix
 
-### A. Implementation Details
+<details>
+<summary><strong>▼ A. Implementation Details</strong></summary>
 
 #### Environment and Dependencies
 - **Compute:** NYU Greene HPC cluster with NVIDIA A100 80GB GPUs
@@ -468,8 +471,11 @@ We built a **unified, no-excuses evaluation pipeline** for HotpotQA and put four
 - SLURM job scripts document resource allocation (CPUs, memory, GPU count, time)
 - **Note:** This repository is for documentation; original runs used team members' local paths/environments (see `README.md`)
 
+</details>
 
-### B. Example Outputs
+<details>
+<summary><strong>▼ B. Example Outputs</strong></summary>
+
 **Question:** Are Local H and For Against both from the United States?  
 **Gold Answer:** `yes`
 
@@ -480,20 +486,18 @@ We built a **unified, no-excuses evaluation pipeline** for HotpotQA and put four
 > Yes, both are from the United States.
 
 **InstructRAG** *(Accuracy = 1, F1 = 0.01)*  
-<details><summary>Show response</summary>
-
-Yes, based on the information provided in the documents, Local H and For Against are both from the United States.
-
-Document 5 (Title: Local H) states that Local H is an American rock band originally formed by guitarist and vocalist Scott Lucas, bassist Matt Garcia, drummer Joe Daniels, and lead guitarist John Sparkman in Zion, Illinois in 1987. This indicates that Local H is from Illinois, which is a state in the United States.
-
-Similarly, Document 7 (Title: For Against) mentions that the band has produced material steadily from its 1984 inception to the present, which suggests that For Against has been active for a long time and is likely from the United States.
-
-There is no information in the provided documents to suggest that Local H or For Against are from any other country. Therefore, based on the available evidence, it can be concluded that both Local H and For Against are from the United States.
-</details>
+> Yes, based on the information provided in the documents, Local H and For Against are both from the United States.
+>
+> Document 5 (Title: Local H) states that Local H is an American rock band originally formed by guitarist and vocalist Scott Lucas, bassist Matt Garcia, drummer Joe Daniels, and lead guitarist John Sparkman in Zion, Illinois in 1987. This indicates that Local H is from Illinois, which is a state in the United States.
+>
+> Similarly, Document 7 (Title: For Against) mentions that the band has produced material steadily from its 1984 inception to the present, which suggests that For Against has been active for a long time and is likely from the United States.
+>
+> There is no information in the provided documents to suggest that Local H or For Against are from any other country. Therefore, based on the available evidence, it can be concluded that both Local H and For Against are from the United States.
 
 **Self-RAG** *(Accuracy = 1, F1 = 0.17)*  
 > Yes, both Local H and For Against are from the United States.
 
+</details>
 
 ---
 
