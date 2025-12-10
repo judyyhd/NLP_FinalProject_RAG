@@ -239,9 +239,8 @@ Experiments conducted on multiple data scales:
 
 ## Results
 
-### Quantitative Results
 
-#### Overall Performance Comparison
+### Overall Performance Comparison
 
 | Model       | EM    | F1    | Accuracy | Length | Semantic Sim |
 | ----------- | ----- | ----- | -------- | ------ | ------------ |
@@ -252,15 +251,15 @@ Experiments conducted on multiple data scales:
 
 ![Core Metrics Comparison](evaluation/outputs/core_metrics.png)
 
-#### Semantic Similarity Analysis
+### Semantic Similarity Analysis
 
 ![Semantic Similarity](evaluation/outputs/semantic_similarity.png)
 
-#### Response Length Comparison
+### Response Length Comparison
 
 ![Response Length](evaluation/outputs/response_length.png)
 
-#### Between Metrics Agreement
+### Between Metrics Agreement
 
 ![Metrics Agreement](evaluation/outputs/accuracy_agreement_matrix.png)
 
