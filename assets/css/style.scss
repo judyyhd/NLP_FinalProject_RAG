@@ -466,57 +466,57 @@ footer a:hover {
 }
 
 /* ============================================================================
-   Collapsible Sections (Appendix)
+   Collapsible Sections (Appendix) - Using native details/summary
    ============================================================================ */
 
-.collapsible-section {
+details {
   margin: 1.5rem 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-.collapsible-header {
+details summary {
   cursor: pointer;
   padding: 1rem;
   background-color: #f5f5f5;
   border-left: 4px solid var(--nyu-violet);
-  border-radius: 4px;
   user-select: none;
   transition: background-color 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  list-style: none;
 }
 
-.collapsible-header:hover {
+details summary:hover {
   background-color: #ebebeb;
 }
 
-.collapsible-header h3 {
-  margin: 0;
-  font-size: 1.25rem;
+/* Hide default marker */
+details summary::-webkit-details-marker {
+  display: none;
 }
 
-.collapsible-icon {
-  font-size: 0.8rem;
-  transition: transform 0.3s ease;
+details summary::marker {
+  display: none;
+}
+
+/* Custom arrow */
+details summary::before {
+  content: "▼ ";
   display: inline-block;
+  margin-right: 0.5em;
+  transition: transform 0.3s ease;
+  font-size: 0.8em;
   color: var(--nyu-violet);
 }
 
-.collapsible-icon.open {
-  transform: rotate(180deg);
+details[open] summary::before {
+  transform: rotate(-90deg);
 }
 
-.collapsible-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-out;
-  padding: 0 1rem;
-}
-
-.collapsible-content.open {
-  max-height: 5000px;
-  padding: 1rem;
-  transition: max-height 0.6s ease-in;
+details > div {
+  padding: 1rem 1.5rem;
 }
 
 /* ============================================================================
@@ -547,8 +547,15 @@ footer a:hover {
   }
   
   /* Show all collapsible content when printing */
-  .collapsible-content {
-    max-height: none !important;
-    padding: 1rem !important;
+  details summary {
+    display: none;
+  }
+  
+  details {
+    border: none;
+  }
+  
+  details > div {
+    padding: 0 !important;
   }
 }
