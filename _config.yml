@@ -1,6 +1,6 @@
 theme: jekyll-theme-cayman
-title: Complexity-Accuracy Tradeoffs in RAG: A Comparative Study on HotpotQA
-description: Comparing different RAG approaches for multi-hop question answering
+title: "Complexity-Accuracy Tradeoffs in RAG: A Comparative Study on HotpotQA"
+description: "Comparing different RAG approaches for multi-hop question answering"
 show_downloads: false
 
 # NYU Branding
