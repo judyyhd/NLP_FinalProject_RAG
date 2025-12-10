@@ -5,8 +5,8 @@ title: Comparing RAG Systems for Multi-Hop Question Answering
 
 # Comparing RAG Systems for Multi-Hop Question Answering on HotpotQA
 
-**Course:** Fundamentals of Natural Language Processing  
-**Team Members:** [Ghina Al Shdaifat, Huizhen Jin, Shengduo Li, Yixuan Wang, Judy Yang]  
+**Course:** DS-GA 1011: Fundamentals of Natural Language Processing  
+**Team Members:** Ghina Al Shdaifat, Huizhen Jin, Shengduo Li, Yixuan Wang, Judy Yang
 **Date:** December 2025
 
 ---
@@ -386,7 +386,60 @@ We built a unified, apples-to-apples evaluation pipeline for HotpotQA (distracto
 ## Appendix
 
 ### A. Implementation Details
-[Judy]
+
+#### Environment and Dependencies
+- **Compute:** NYU Greene HPC cluster with NVIDIA A100 80GB GPUs
+- **Python:** 3.8+ with conda environment management
+- **Key libraries:**
+  - `transformers==4.36.2` (Hugging Face)
+  - `vllm==0.2.6` (fast inference)
+  - `torch` with CUDA 12.1
+  - `sentence-transformers` (semantic similarity)
+  - `datasets==2.15.0`, `accelerate==0.25.0`, `deepspeed==0.12.6`
+  - `flash-attn==2.3.6` (efficient attention)
+
+#### Data Pipeline
+1. **Conversion scripts** (`data_chunking/scripts/`):
+   - `convert_hotpotqa_to_selfrag.py` — Unified format converter
+   - `create_subset.py` — Generate subsets (10, 100, 500, 1K, 5K, 10K examples)
+2. **Output:** Single JSON schema with normalized fields (`question`, `answer`, `passages[]`, `supporting_facts`)
+3. **Evaluation set:** Full HotpotQA distractor dev split (7,405 examples)
+
+#### Model Execution
+
+**No RAG & Vanilla RAG** (`no_rag_vanilla_rag/`):
+- Scripts: `run_no_rag.sh`, `run_vanilla_rag.sh`
+- Model: `meta-llama/Llama-2-7b-hf`
+- Configuration: `max_new_tokens=100`, adaptive batch size (5–10), SLURM job management
+- Retrieval: Top-k from provided HotpotQA context (2 gold + 8 distractors)
+
+**Self-RAG** (`selfrag/`):
+- Based on authors' released checkpoint with adaptive retrieval + reflection tokens
+- Inference via `retrieval_lm/` scripts
+- Supports modes: always retrieve, adaptive, no retrieval
+- Environment: `environment.yml` with Self-RAG dependencies
+
+**InstructRAG** (`instructrag/`):
+- Scripts: `eval.sh`, `generate_rationale.sh`, `hotpot_test.sh`
+- Variants tested: zero-shot ICL, one-shot ICL
+- Backbones: Llama-2-7B, Llama-3-8B, authors' fine-tuned Llama-3
+- Rationale generation via `src/inference.py`
+
+#### Evaluation Pipeline (`evaluation/`)
+- **Main script:** `advanced_evaluation.py`
+- **Metrics computed:**
+  - Exact Match and F1 via `metrics.py` from Self-RAG repo
+  - Accuracy via custom `exact_presence` (lenient hit-rate)
+  - Semantic similarity via `sentence-transformers` (`all-MiniLM-L6-v2`)
+  - Length statistics (mean, median, std)
+- **Outputs:** JSON results (2GB, hosted on [Google Drive](https://drive.google.com/drive/folders/13qShDIY2GVGJ-cy8Yl3wKGMW7gpc_RtZ?usp=sharing)), PNG plots, and summary reports in `evaluation/outputs/`
+
+
+#### Reproducibility Notes
+- All systems consume the **same converted dev records** for apples-to-apples comparison
+- Fixed random seeds where applicable
+- SLURM job scripts document resource allocation (CPUs, memory, GPU count, time)
+- **Note:** This repository is for documentation; original runs used team members' local paths/environments (see `README.md`)
 
 
 ### B. Example Outputs
