@@ -417,6 +417,8 @@ We built a **unified, no-excuses evaluation pipeline** for HotpotQA and put four
 <details>
 <summary><strong>▼ A. Implementation Details</strong></summary>
 
+### A. Implementation Details
+
 #### Environment and Dependencies
 - **Compute:** NYU Greene HPC cluster with NVIDIA A100 80GB GPUs
 - **Python:** 3.8+ with conda environment management
@@ -475,6 +477,8 @@ We built a **unified, no-excuses evaluation pipeline** for HotpotQA and put four
 
 <details>
 <summary><strong>▼ B. Example Outputs</strong></summary>
+
+### B. Example Outputs
 
 **Question:** Are Local H and For Against both from the United States?  
 **Gold Answer:** `yes`
