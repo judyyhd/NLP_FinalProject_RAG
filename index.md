@@ -1,12 +1,13 @@
 ---
 layout: default
-title: Comparing RAG Systems for Multi-Hop Question Answering
 ---
 
-# Comparing RAG Systems for Multi-Hop Question Answering on HotpotQA
+# Project Report
 
 **Course:** DS-GA 1011: Fundamentals of Natural Language Processing  
+
 **Team Members:** Ghina Al Shdaifat, Huizhen Jin, Shengduo Li, Yixuan Wang, Judy Yang
+
 **Date:** December 2025
 
 ---
@@ -20,27 +21,41 @@ We study how different reasoning-supervision strategies affect Retrieval-Augment
 
 Two findings stood out. First, these methods optimize different parts of the pipeline and therefore produce qualitatively different answers; simple span-matching metrics alone don’t fully capture their strengths or failure modes. Second, there’s a practical trade-off between complexity/compute and perceived “helpfulness.” Self-RAG’s reflection and gated retrieval deliver a structured, reliable boost over vanilla RAG with modest tuning, keeping outputs concise and easier to verify. InstructRAG can edge higher on HotpotQA’s noisy setting, but its longer, rationale-style generations raise verification cost and expose more chances for drift. In our repo runs, we also observed one-shot > zero-shot and Llama-3 > fine-tuned-Llama-3 (authors’ release) > Llama-2—consistent with backbone strength and our harmonized LLaMA-2-centric code path. Takeaway: choose methods by balancing accuracy gains against compute and human verification effort, and evaluate with task-aligned criteria (faithfulness, concision, stability), not just span-matching.
 --->
-We study how **reasoning-supervision strategies** affect Retrieval-Augmented Generation (RAG) on **multi-hop QA with distractor noise (HotpotQA)**. Vanilla RAG conditions a generator on retrieved passages via **latent-document marginalization** (RAG-Sequence / RAG-Token), combining a DPR/Contriever-style retriever with a seq2seq LM, but can struggle when **retrieval introduces noise** and when **evidence must be synthesized across hops**. We compare: (i) **Vanilla RAG**; (ii) **Self-RAG**, which learns *when* to retrieve and to self-assess **relevance / support / utility** via reflection tokens; and (iii) **InstructRAG**, which equips an instruction-tuned LM with **self-synthesized denoising rationales** used either as in-context demonstrations or for supervised fine-tuning. On our setup (**Llama-2-7B** backbone, **Contriever** retriever), we evaluate **Accuracy**, **Exact Match (EM)**, **F1**, **Semantic Similarity**, and **Length** on the **full converted HotpotQA dev** set.
+When language models need to answer complex questions requiring multiple pieces of evidence, **how you design the retrieval and reasoning pipeline matters—a lot**. We investigate how different **reasoning-supervision strategies** shape Retrieval-Augmented Generation (RAG) performance on **HotpotQA**, a challenging multi-hop QA benchmark riddled with distractor noise.
 
-### Novelty / contribution 
-This is the **first head-to-head comparison of Self-RAG vs. InstructRAG vs. Vanilla RAG on a *noisy multi-hop* benchmark**, under a **unified data path and metrics**. Two findings stood out. First, these methods optimize different parts of the pipeline and therefore produce **qualitatively different answers**; **span-matching alone** doesn’t fully capture their strengths or failure modes. Second, there’s a practical **trade-off between complexity/compute and “helpfulness.”** **Self-RAG’s** reflection and gated retrieval deliver a **structured, reliable boost** over vanilla RAG with modest tuning, keeping outputs **concise and easier to verify**. **InstructRAG** can **edge higher on hit-rate** in the noisy setting, but its **longer, rationale-style generations** raise verification cost and expose more chances for drift. In our runs, we also observe **one-shot > zero-shot** and **Llama-3 > fine-tuned Llama-3 (authors’ release) > Llama-2**—consistent with backbone strength and our harmonized LLaMA-2-centric code path. **Takeaway:** choose methods by balancing **accuracy gains** against **compute and human verification effort**, and evaluate with **faithfulness, concision, and stability**, not just EM/F1.
+Vanilla RAG retrieves passages and conditions generation via **latent-document marginalization** (RAG-Sequence / RAG-Token), but stumbles when **noise floods the context** and **evidence must be chained across documents**. We pit three approaches against each other: **(i) Vanilla RAG** as our baseline; **(ii) Self-RAG**, which learns to **decide when to retrieve** and **critique its own outputs** using reflection tokens; and **(iii) InstructRAG**, which leverages **instruction-tuned LMs** with **self-synthesized denoising rationales** to filter noise before answering.
+
+Using a **Llama-2-7B** backbone and **Contriever** retriever on the **full HotpotQA dev set**, we measure **Accuracy**, **Exact Match (EM)**, **F1**, **Semantic Similarity**, and **response Length** to capture both correctness and practical usability.
+
+### What Makes This Work Novel?
+
+This is the **first apples-to-apples comparison of Self-RAG vs. InstructRAG vs. Vanilla RAG on a *noisy multi-hop* benchmark**, under a **unified data path and metrics**. 
+
+**Two surprising insights emerged:**
+
+1. First, these methods optimize different parts of the pipeline and therefore produce **qualitatively different answers**; **span-matching alone** doesn’t fully capture their strengths or failure modes. Second, there’s a practical **trade-off between complexity/compute and “helpfulness.”** **Self-RAG’s** reflection and gated retrieval deliver a **structured, reliable boost** over vanilla RAG with modest tuning, keeping outputs **concise and easier to verify**. **InstructRAG** can **edge higher on hit-rate** in the noisy setting, but its **longer, rationale-style generations** raise verification cost and expose more chances for drift. In our runs, we also observe **one-shot > zero-shot** and **Llama-3 > fine-tuned Llama-3 (authors’ release) > Llama-2**—consistent with backbone strength and our harmonized LLaMA-2-centric code path. **Takeaway:** choose methods by balancing **accuracy gains** against **compute and human verification effort**, and evaluate with **faithfulness, concision, and stability**, not just EM/F1.
 
 ---
 
 ## Introduction
 
 ### Motivation
-**Why is RAG important for question answering?**
+**Why RAG matters for real-world QA**
 
-Many real questions require facts that aren’t inside the model’s parameters. Retrieval-Augmented Generation (RAG) tackles this by pulling evidence from a large corpus at inference time and letting the generator condition on that evidence. This reduces parametric hallucination, keeps answers grounded in sources, and makes systems easier to update (swap or reindex the corpus rather than re-train the LM). In short: RAG is a practical bridge between powerful LMs and ever-changing knowledge needs.
+Large language models know a lot—but they don't know *everything*, and what they do "know" can be outdated or wrong. **Retrieval-Augmented Generation (RAG)** solves this by fetching fresh evidence from external corpora at inference time, grounding answers in verifiable sources. This approach **reduces hallucination**, keeps knowledge **up-to-date without retraining**, and makes systems **transparent** (you can inspect what the model retrieved). RAG bridges the gap between powerful LMs and the messy, evolving nature of real-world knowledge.
 
-**What challenges exist in multi-hop reasoning?**
+**The multi-hop reasoning challenge**
 
-Multi-hop QA (like HotpotQA) forces a model to locate multiple pieces of evidence and connect them—often across documents—before answering. The dataset’s “distractor” setup mixes gold paragraphs with retrieved noise; it also includes comparison questions and supplies sentence-level supporting facts, so models are tested not only on answer spans but also on whether their reasoning points to the right evidence. Together, this makes retrieval, evidence selection, and explanation supervision core challenges for any RAG system.
+Not all questions are simple lookups. **Multi-hop QA** (like HotpotQA) demands that models **chain evidence across multiple documents**—think "Who directed the film based on the novel written by X?" You need document A to find the film, then document B to find the director. Add **distractor paragraphs** (8 irrelevant passages mixed with 2 gold ones), and suddenly your model must **navigate noise, select the right evidence, and synthesize** a coherent answer. This stress-tests retrieval quality, reasoning ability, and robustness simultaneously.
 
-**Why compare different RAG approaches?**
+**Why pit these three RAG approaches against each other?**
 
-There are many RAG flavors, but we focus on two that are both technically sound and complementary in how they improve reasoning: Self-RAG, which teaches the model to decide when to retrieve and to self-assess evidence via reflection tokens, and InstructRAG, which leverages instruction-tuned LMs and denoising rationales to make demonstrations more helpful. They target similar goals (better reasoning and grounding) through different mechanisms (learning to control retrieval vs. strengthening instruction/rationale signals), making them directly comparable and, crucially, feasible to implement end-to-end on the same corpus and backbone for a fair study.
+RAG isn't a monolith—it's a design space. We focus on **two cutting-edge variants** and a **strong baseline**:
+- **Vanilla RAG**: Retrieve top-k passages, feed them to the LM. Simple, fast, but vulnerable to noise.
+- **Self-RAG**: Learns to **decide when to retrieve** and **self-critique** using reflection tokens—adaptive and disciplined.
+- **InstructRAG**: Uses **instruction tuning** and **denoising rationales** to guide reasoning through clutter—more verbose but potentially more robust.
+
+They attack the same problem (reasoning over noisy retrieval) from **complementary angles**: adaptive control vs. rationale-driven filtering. By running them on **identical inputs** with **identical metrics**, we can finally see which strategies pay off—and at what cost.
 
 ### Research Questions
 1. How does retrieval-augmented generation compare to baseline LLMs?
@@ -252,9 +267,12 @@ Experiments conducted on multiple data scales:
 ## Discussion
 
 ### Key Findings
-1. **Method choice changes answer *style*, not just scores.** Self-RAG, Vanilla RAG, and InstructRAG optimize different parts of the pipeline, yielding qualitatively different outputs; EM/F1 alone can miss faithfulness and verification cost.
-2. **Self-RAG offers the best balance for concise, checkable answers.** With light tuning, it improved EM/F1 and semantic similarity while keeping length moderate—i.e., grounded answers with lower reviewer burden.
-3. **InstructRAG can boost hit-rate but at a cost.** It achieved the highest Accuracy on our setup, yet produced much longer, harder-to-audit responses. In our ICL tests, **one-shot > zero-shot** and **Llama-3 > ft-Llama-3 > Llama-2**.
+
+1. **Different architectures, different answer personalities.** Self-RAG, Vanilla RAG, and InstructRAG don't just score differently—they **produce qualitatively distinct outputs**. EM/F1 won't tell you which answer is faithful, concise, or usable. You need to look beyond span-matching.
+
+2. **Self-RAG strikes the sweet spot.** It delivers **substantial gains** in EM/F1 and semantic similarity while keeping responses **short and auditable**. For practitioners who need grounded answers with minimal verification overhead, it's the clear winner.
+
+3. **InstructRAG trades concision for coverage—at a price.** It achieves the **highest raw accuracy**, but its **verbose, rationale-heavy outputs** demand more human review and carry higher drift risk. Also: **one-shot ICL beats zero-shot**, and **Llama-3 > fine-tuned Llama-3 > Llama-2** in our tests—backbone quality matters.
 
 ### Comparison of Approaches
 
@@ -313,18 +331,27 @@ Summary of:
 - Key takeaways for practitioners
 - Contributions to understanding RAG systems
 -->
-### What we accomplished
-We built a unified, apples-to-apples evaluation pipeline for HotpotQA (distractor setting) and ran four systems—No RAG, Vanilla RAG, Self-RAG, and InstructRAG—on the **full converted dev set** using the same inputs and metrics. Self-RAG delivered the strongest balance across EM/F1 and semantic similarity with concise, verifiable answers, while InstructRAG achieved the highest accuracy but produced much longer outputs. 
+### What We Accomplished
 
-### Key takeaways for practitioners
-- **Retrieval control matters.** Unfiltered retrieval can add noise; reflective control (as in Self-RAG) helps decide *when* to retrieve and *what* to keep, improving faithfulness and precision.  
-- **Match method to metric & workflow.** If you need concise, easy-to-verify answers (EM/F1, short outputs), Self-RAG’s calibrated verbosity is a good fit. If you value broader hit-rates/accuracy with richer rationales, InstructRAG can help—at higher verification cost.  
-- **Optimize for verification cost.** Longer rationale chains are costlier to check and more prone to drift; structured retrieval + evidence checks reduce review overhead.
+We built a **unified, no-excuses evaluation pipeline** for HotpotQA and put four RAG systems through their paces: **No RAG**, **Vanilla RAG**, **Self-RAG**, and **InstructRAG**—all consuming **identical inputs** and measured by **identical metrics**. 
 
-### Contributions to understanding RAG systems
-- A head-to-head comparison showing how **reasoning-supervision choices** (fixed retrieval, reflective retrieval, rationale-driven prompting) lead to **qualitatively different outputs** and trade-offs across EM/F1/accuracy/semantic similarity.  
-- Clear evidence that **ICL design** (one-shot > zero-shot) and **backbone strength** (Llama-3 > ft-Llama-3 > Llama-2) materially affect InstructRAG in our setup.  
-- An argument (with code and results) for **task-aligned evaluation** beyond span-matching—tracking **faithfulness, concision, and stability**—so teams can balance accuracy gains against compute and human-verification effort.
+**The verdict?** Self-RAG delivers the **best balance**: strong EM/F1, high semantic similarity, and **concise, verifiable answers**. InstructRAG achieves the **highest accuracy** but at the cost of **verbose outputs** that strain human review. 
+
+### Takeaways for Practitioners
+
+- **Control your retrieval, control your quality.** Unfiltered retrieval drowns your model in noise. Self-RAG's adaptive gating—knowing *when* to retrieve and *what* to trust—makes all the difference.
+
+- **Choose your architecture to match your workflow.** Need tight, checkable answers for production? **Self-RAG** is your friend. Want broader coverage and don't mind longer outputs? **InstructRAG** can help—just budget for the verification cost.
+
+- **Don't just chase EM/F1.** Real-world systems need **faithfulness**, **concision**, and **stability**. Evaluate accordingly.
+
+### What This Means for RAG Research
+
+- **Architecture isn't just about accuracy—it's about answer style.** Reasoning-supervision choices (adaptive retrieval, reflection, rationale generation) shape **what kind of output** you get, not just how often it's right.
+
+- **Stronger backbones and better prompts matter.** Our ICL experiments confirm: **one-shot > zero-shot** and **Llama-3 > fine-tuned Llama-3 > Llama-2**.
+
+- **Evaluation needs to grow up.** Span-matching is necessary but insufficient. We need metrics that capture **faithfulness**, **usability**, and **verification cost**—because what looks "correct" on paper might be a nightmare in production.
 
 
 
