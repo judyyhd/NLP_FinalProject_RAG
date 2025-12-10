@@ -414,10 +414,12 @@ We built a **unified, no-excuses evaluation pipeline** for HotpotQA and put four
 
 ## Appendix
 
-<details>
-<summary><strong>▼ A. Implementation Details</strong></summary>
-
-### A. Implementation Details
+<div class="collapsible-section">
+  <div class="collapsible-header" onclick="toggleCollapsible(this)">
+    <span class="collapsible-icon">▼</span>
+    <h3>A. Implementation Details</h3>
+  </div>
+  <div class="collapsible-content">
 
 #### Environment and Dependencies
 - **Compute:** NYU Greene HPC cluster with NVIDIA A100 80GB GPUs
@@ -473,12 +475,15 @@ We built a **unified, no-excuses evaluation pipeline** for HotpotQA and put four
 - SLURM job scripts document resource allocation (CPUs, memory, GPU count, time)
 - **Note:** This repository is for documentation; original runs used team members' local paths/environments (see `README.md`)
 
-</details>
+  </div>
+</div>
 
-<details>
-<summary><strong>▼ B. Example Outputs</strong></summary>
-
-### B. Example Outputs
+<div class="collapsible-section">
+  <div class="collapsible-header" onclick="toggleCollapsible(this)">
+    <span class="collapsible-icon">▼</span>
+    <h3>B. Example Outputs</h3>
+  </div>
+  <div class="collapsible-content">
 
 **Question:** Are Local H and For Against both from the United States?  
 **Gold Answer:** `yes`
@@ -501,7 +506,18 @@ We built a **unified, no-excuses evaluation pipeline** for HotpotQA and put four
 **Self-RAG** *(Accuracy = 1, F1 = 0.17)*  
 > Yes, both Local H and For Against are from the United States.
 
-</details>
+  </div>
+</div>
+
+<script>
+function toggleCollapsible(header) {
+  const icon = header.querySelector('.collapsible-icon');
+  const content = header.nextElementSibling;
+  
+  icon.classList.toggle('open');
+  content.classList.toggle('open');
+}
+</script>
 
 ---
 
